@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第1集 大自然的密码 · 学习单</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 186mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page {
+    width: 186mm; min-height: 271mm; margin: 12px auto; padding: 8mm 9mm;
+    background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: flex; flex-direction: column; gap: 5mm;
+  }
+  @media print {
+    body { background: #fff; }
+    .tip { display: none; }
+    .page { margin: 0; box-shadow: none; padding: 0; page-break-after: always; min-height: auto; height: 271mm; }
+  }
+  header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 3px solid #1E2640; padding-bottom: 3mm; }
+  header h1 { margin: 0; font-size: 22pt; letter-spacing: 1px; }
+  header h1 small { font-size: 12pt; font-weight: 700; color: #7B5CF0; display: block; letter-spacing: 3px; }
+  header .who { font-size: 12pt; line-height: 2; }
+  header .who span { display: inline-block; width: 30mm; border-bottom: 1px solid #1E2640; }
+  h2 { margin: 0 0 2mm; font-size: 14pt; display: flex; align-items: center; gap: 6px; }
+  h2 .n { background: #1E2640; color: #fff; border-radius: 50%; width: 8mm; height: 8mm; display: inline-flex; align-items: center; justify-content: center; font-size: 12pt; }
+  p { margin: 0 0 2mm; font-size: 11pt; line-height: 1.6; }
+  .boxes { display: flex; gap: 2mm; }
+  .boxes div { flex: 1; height: 13mm; border: 2px solid #1E2640; border-radius: 3mm; position: relative; }
+  .boxes div::after { content: attr(data-l); position: absolute; bottom: -5mm; left: 0; right: 0; text-align: center; font-size: 8pt; color: #5B6275; }
+  .boxes div.s7 { border-color: #7B5CF0; border-width: 3px; }
+  .sumline { margin-top: 7mm; font-size: 12pt; display: flex; gap: 4mm; align-items: center; }
+  .sumline span { display: inline-block; width: 30mm; height: 10mm; border: 2px solid #1E2640; border-radius: 3mm; }
+  .seed-wrap { display: flex; gap: 5mm; align-items: center; }
+  .seed-wrap svg { flex: none; }
+  .fill { display: inline-block; min-width: 14mm; border-bottom: 1.5px solid #1E2640; }
+  table { border-collapse: collapse; width: 100%; font-size: 11pt; }
+  th, td { border: 1.5px solid #1E2640; padding: 2.2mm 2mm; text-align: center; }
+  th { background: #F1EEE8; }
+  .guess { font-size: 11pt; }
+  .card { border: 2px solid #1E2640; border-radius: 4mm; padding: 3mm 4mm; }
+  .card.soft { border-style: dashed; }
+  ol { margin: 0; padding-left: 6mm; font-size: 11pt; line-height: 1.8; }
+  .cut { border-top: 2px dashed #9AA0AE; margin-top: auto; padding-top: 3mm; position: relative; }
+  .cut::before { content: "✂ 沿虚线剪下，带回家"; position: absolute; top: -9px; left: 8mm; background: #fff; padding: 0 2mm; font-size: 9pt; color: #5B6275; }
+</style>
+</head>
+<body>
+
+<div class="tip">📄 打印说明：用 A4 纸<b>双面</b>打印（每人 1 张），打印时“缩放”选“实际大小/100%”，勾选“背景图形”。第 3 题的正方形是按毫米画的，可以直接用直尺测量。
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<!-- ======================= 第 1 页 ======================= -->
+<div class="page">
+  <header>
+    <h1><small>数学之美 · 系列课 第 1 集</small>大自然的密码 · 学习单</h1>
+    <div class="who">班级 <span></span><br>姓名 <span></span></div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>🎩 加法魔术</h2>
+    <p>把同学选的两个数写进前两个格子。以后每个数 = <b>前两个数相加</b>。写满 10 个，再算总和！</p>
+    <div class="boxes">
+      <div data-l="第1个"></div><div data-l="第2个"></div><div data-l="第3个"></div><div data-l="第4个"></div><div data-l="第5个"></div>
+      <div data-l="第6个"></div><div class="s7" data-l="第7个"></div><div data-l="第8个"></div><div data-l="第9个"></div><div data-l="第10个"></div>
+    </div>
+    <div class="sumline">10 个数的总和 = <span></span>　老师的预言 = <span></span></div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>🌻 给向日葵涂螺旋</h2>
+    <div class="seed-wrap">
+      <div id="seedHead"></div>
+      <div>
+        <p>① 从<b>最外圈</b>的一颗种子开始，顺着弯弯的“路”往中心涂色（每次都选挨得最近的下一颗）。</p>
+        <p>② 换一种颜色，朝<b>另一个方向</b>再涂一条。</p>
+        <p>③ 数一数：</p>
+        <p>顺时针方向有 <span class="fill"></span> 条螺旋，<br>逆时针方向有 <span class="fill"></span> 条螺旋。</p>
+        <p style="color:#5B6275;font-size:10pt">小提示：只要涂出一条，再数一数最外圈有多少个“起点”就行啦。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card soft">
+    <h2 style="font-size:12pt">🌸 数花瓣记录（选做）</h2>
+    <p style="margin:0">我数的花：<span class="fill" style="min-width:30mm"></span>　有 <span class="fill"></span> 片花瓣。它是斐波那契数吗？ □ 是　□ 不是</p>
+  </section>
+</div>
+
+<!-- ======================= 第 2 页 ======================= -->
+<div class="page">
+  <section>
+    <h2><span class="n">3</span>🐚 画一条斐波那契螺旋</h2>
+    <p>正方形的边长是 1、1、2、3、5、8、13（单位：6 毫米）。在每个正方形里，从一个角到对面的角画<b>四分之一圆弧</b>，把它们连起来！（前两段已经画好了）</p>
+    <div id="fibGrid" style="display:flex;justify-content:center"></div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>📏 谁最接近 1.618？</h2>
+    <p>用直尺量一量身边的长方形，算出 <b>长 ÷ 宽</b>（保留一位小数就可以）。</p>
+    <table>
+      <tr><th style="width:36%">东西</th><th>长（厘米）</th><th>宽（厘米）</th><th>长 ÷ 宽 ≈</th></tr>
+      <tr><td style="height:10mm"></td><td></td><td></td><td></td></tr>
+      <tr><td style="height:10mm"></td><td></td><td></td><td></td></tr>
+      <tr><td style="height:10mm"></td><td></td><td></td><td></td></tr>
+    </table>
+  </section>
+
+  <div class="cut">
+    <div style="display:flex;gap:5mm">
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🏠 回家小挑战（任选一个）</h2>
+        <ol>
+          <li>给家人表演<b>加法魔术</b>，再教会他们</li>
+          <li>数一数松果或菠萝上的螺旋</li>
+          <li>找 3 种花，数花瓣</li>
+          <li>量一量：身高 ÷ 肚脐离地高度 ≈ ？</li>
+        </ol>
+      </div>
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🎩 魔术表演指南</h2>
+        <ol>
+          <li>请家人任选两个数，按“前两个相加”写满 10 个</li>
+          <li>看到<b>第 7 个数</b>时，心里算它 × 11（先 × 10，再加上它自己），偷偷写在纸上</li>
+          <li>等家人算完总和，打开你的纸条——一模一样！</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 第 2 题：按黄金角生成向日葵花盘（只画空心圆圈，方便涂色）
+  (function () {
+    var N = 300, S = 88 * 3.7795, R = S / 2 - 6, GA = Math.PI * (3 - Math.sqrt(5)); // 黄金角（弧度）
+    var c = R / Math.sqrt(N), out = [];
+    out.push('<svg width="' + S + '" height="' + S + '" viewBox="0 0 ' + S + ' ' + S + '">');
+    out.push('<circle cx="' + S / 2 + '" cy="' + S / 2 + '" r="' + (S / 2 - 1) + '" fill="#FFF6DB" stroke="#E9A400" stroke-width="1.5"/>');
+    for (var i = 1; i <= N; i++) {
+      var r = c * Math.sqrt(i), a = i * GA;
+      out.push('<circle cx="' + (S / 2 + r * Math.cos(a)).toFixed(1) + '" cy="' + (S / 2 + r * Math.sin(a)).toFixed(1) +
+        '" r="' + (c * 0.44).toFixed(1) + '" fill="#fff" stroke="#8A6A3A" stroke-width="1"/>');
+    }
+    out.push('</svg>');
+    document.getElementById('seedHead').innerHTML = out.join('');
+  })();
+
+  // 第 3 题：斐波那契正方形（单位 6 毫米），前两段弧已画好
+  (function () {
+    var U = 6 * 3.7795, fib = [1, 1, 2, 3, 5, 8, 13], sq = [], rect = { x: 0, y: 0, w: 1, h: 1 };
+    sq.push({ x: 0, y: 0, s: 1 });
+    for (var k = 1; k < fib.length; k++) {
+      var s = fib[k], d = (k - 1) % 4, q;
+      if (d === 0) { q = { x: rect.x + rect.w, y: rect.y, s: s }; rect.w += s; }
+      else if (d === 1) { q = { x: rect.x, y: rect.y - s, s: s }; rect.y -= s; rect.h += s; }
+      else if (d === 2) { q = { x: rect.x - s, y: rect.y, s: s }; rect.x -= s; rect.w += s; }
+      else { q = { x: rect.x, y: rect.y + rect.h, s: s }; rect.h += s; }
+      sq.push(q);
+    }
+    // 横过来画（x、y 对调），让图形变成“宽 21 × 高 13”，正好放得下
+    var pad = 4, W = rect.h * U + pad * 2, H = rect.w * U + pad * 2;
+    function PX(x, y) { return (y - rect.y) * U + pad; } function PY(x, y) { return (x - rect.x) * U + pad; }
+    var out = ['<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">'];
+    sq.forEach(function (q) {
+      var x0 = PX(q.x, q.y), y0 = PY(q.x, q.y);
+      out.push('<rect x="' + x0 + '" y="' + y0 + '" width="' + q.s * U + '" height="' + q.s * U + '" fill="none" stroke="#1E2640" stroke-width="1.4"/>');
+      if (q.s >= 2) out.push('<text x="' + (x0 + q.s * U / 2) + '" y="' + (y0 + q.s * U / 2 + 5) + '" text-anchor="middle" font-size="' + Math.min(26, 8 + q.s * 1.6) + '" fill="#C9C3B6" font-weight="700">' + q.s + '</text>');
+    });
+    // 前两段示范弧：正方形 0（圆心在右上角），正方形 1（圆心在左上角）
+    // （对调 x、y 后，弧的旋转方向也跟着反过来，所以 sweep 标志用 1）
+    out.push('<path d="M ' + PX(0, 0) + ' ' + PY(0, 0) + ' A ' + U + ' ' + U + ' 0 0 1 ' + PX(1, 1) + ' ' + PY(1, 1) + '" fill="none" stroke="#F04E4B" stroke-width="2.5"/>');
+    out.push('<path d="M ' + PX(1, 1) + ' ' + PY(1, 1) + ' A ' + U + ' ' + U + ' 0 0 1 ' + PX(2, 0) + ' ' + PY(2, 0) + '" fill="none" stroke="#F04E4B" stroke-width="2.5"/>');
+    out.push('</svg>');
+    document.getElementById('fibGrid').innerHTML = out.join('');
+  })();
+</script>
+</body>
+</html>

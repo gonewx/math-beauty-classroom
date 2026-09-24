@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第1集 大自然的密码 · 数学之美系列课</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<script>
+  // 本集章节与计划时间（合计 40 分钟）
+  window.DECK_CONFIG = {
+    chapters: [
+      { name: '开场', min: 6, color: '#7B5CF0' },
+      { name: '第一站 · 兔子里的数列', min: 7, color: '#F08A00' },
+      { name: '第二站 · 植物会数数', min: 12, color: '#12A38A' },
+      { name: '第三站 · 螺旋与黄金比', min: 10, color: '#2F80ED' },
+      { name: '揭秘与收获', min: 5, color: '#F04E4B' }
+    ]
+  };
+</script>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ============================ 开场（6 分钟） ============================ -->
+
+<section class="slide cover" data-ch="0" data-title="封面">
+  <div class="bg" data-demo="coverSunflower"></div>
+  <div class="cover-text">
+    <div class="pill">数学之美 · 系列课　第 1 集</div>
+    <h1>大自然的密码</h1>
+    <p class="subtitle">兔子、花朵和向日葵，都会“数数”？</p>
+    <p class="meta">家长进校园 · 适合 4–6 年级 · 40 分钟<br>今天不考试、不做题，只带上 👀 眼睛、👂 耳朵和 ✋ 小手</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b>（学生入座时就停在这一页，右边的“向日葵”会自己慢慢长出来。）</p>
+    <p>开场白参考：“同学们好！我是 ___ 同学的爸爸/妈妈，平时的工作是 ___。接下来几次，我们会一起上一套叫<b>《数学之美》</b>的系列课。今天是第 1 集——<b>不考试、不做题</b>，我们去大自然里‘寻宝’。”</p>
+    <p>指着右边的图问：“这幅图像什么？”（向日葵、蚊香、烟花……都可以夸。）“它是怎么画出来的？下课前你就知道了。”</p>
+    <p>课前请班主任把学生分成 4 人小组，每组发 1 个材料袋：学习单（每人 1 张）、彩笔、直尺；有条件的话每组再放 1 个松果。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="0" data-title="加法魔术">
+  <div class="head"><span class="kicker">开场魔术</span><h2>🎩 比计算器还快的“神算子”</h2></div>
+  <p class="lead small" style="margin-bottom:10px">请一位同学说两个 1～9 的数，全班按规则往后写：<b>每个数 = 前两个数相加</b>。写满 10 个，再求总和——看谁快！</p>
+  <div data-demo="fibMagic"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 4 分钟</b>——本集的“钩子”，演得神秘一点！</p>
+    <p>1. 请一位同学说两个 1～9 的数，点对应的数字按钮（或点“🎲 随机两个数”）。学生在学习单第一题的方框里抄下来。</p>
+    <p>2. 全班一起往后算：“第 3 个数是多少？”大家算出来后，按<b>“下一步”</b>（或翻页笔）显示答案。一个一个往后。</p>
+    <p>3. <b>秘诀（不要说出来！）</b>：第 7 个数一出现（它会变成彩色），你就在心里把它 <b>× 11</b>：先乘 10，再加上它自己。比如第 7 个数是 47，就是 470 + 47 = 517。把这个数<b>写在一张纸上折好</b>，交给一位同学保管。然后按“下一步”，屏幕出现“老师的预言（封好了）”。</p>
+    <p>4. 继续算完第 8、9、10 个数，再请全班算 10 个数的总和（可以让小组比赛，用时约 1 分钟）。按“下一步”显示总和。</p>
+    <p>5. 请保管纸条的同学打开念出来，再按“下一步”打开屏幕上的信封——一模一样！</p>
+    <p>6. 收尾：“为什么我比计算器还快？秘密就藏在今天要讲的这串数里，<b>下课前揭晓</b>！”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="0" data-title="寻宝地图">
+  <div class="head"><span class="kicker">系列课</span><h2>🗺️ 数学之美 · 8 次寻宝之旅</h2></div>
+  <div class="cards c4" style="gap:18px">
+    <div class="card tint" style="padding:18px 22px;font-size:24px;border:4px solid #F08A00"><b>第 1 集 · 今天</b><br>🌻 大自然的密码</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 2 集</span><br>🌿 无穷的图案</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 3 集</span><br>🎗️ 神奇的纸环</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 4 集</span><br>🔐 信息的魔法</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 5 集</span><br>🦋 对称的世界</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 6 集</span><br>⭕ 圆周率的故事</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 7 集</span><br>🎲 运气里的数学</div>
+    <div class="card" style="padding:18px 22px;font-size:24px"><span class="muted">第 8 集</span><br>🐝 聪明的形状</div>
+  </div>
+  <div class="step" style="margin-top:30px">
+    <p class="lead small" style="margin:0 0 12px">今天的路线：</p>
+    <div class="row" style="gap:20px;align-items:center;font-size:32px;font-weight:800">
+      <span class="chip" style="font-size:32px">🐇 第一站：兔子里的数列</span>→
+      <span class="chip" style="font-size:32px">🌻 第二站：植物会数数</span>→
+      <span class="chip" style="font-size:32px">🐚 第三站：螺旋与黄金比</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>“有一位大科学家<b>伽利略</b>说过：大自然这本书，是用数学的语言写成的。这学期我们要去 8 个地方寻宝，今天是第一站——大自然。”</p>
+    <p>点一下出现今天的路线。不必介绍后面每一集，指一指就好，留点悬念。</p>
+  </aside>
+</section>
+
+<!-- ============================ 第一站（7 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="1" data-title="第一站 · 兔子里的数列">
+  <div class="ch-num">第一站</div>
+  <h1>兔子里的数列</h1>
+  <p class="ch-sub">800 多年前的一道趣味题</p>
+  <p class="ch-time">约 7 分钟</p>
+  <div class="ch-emoji">🐇🐰<br>🥕🔢</div>
+  <aside class="notes"><p>⏱ 10 秒过渡。“我们从 800 多年前的一个<b>兔子问题</b>说起。”</p></aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="兔子问题" data-video="videos/01-rabbits.mp4">
+  <div class="head"><span class="kicker">800 年前的难题</span><h2>🐇 一对兔子，一年能变多少对？</h2></div>
+  <div class="row grow">
+    <div class="col" style="width:520px;flex:none">
+      <div class="card tint">
+        <p style="margin:0 0 10px">意大利数学家<b>斐波那契</b>在 1202 年写的书里出了这道题：</p>
+        <ol class="rules" style="font-size:27px">
+          <li>一对刚出生的小兔 🐰，<br>过 1 个月长成大兔 🐇</li>
+          <li>每对大兔子，<b>每个月</b>生一对小兔</li>
+          <li>兔子们永远不会死（数学题里的兔子 😄）</li>
+        </ol>
+      </div>
+      <div class="callout step">每个月的兔子对数：<br><b>本月 = 上个月 + 上上个月</b></div>
+    </div>
+    <div class="grow" data-demo="rabbits"></div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>讲规则时可以请两位同学扮演“第一对兔子”：第 1 个月是小兔，第 2 个月长大，第 3 个月开始每个月生一对。</p>
+    <p>按“下个月 ▶”（翻页笔下一步也可以）一个月一个月推进。<b>每推进前先让全班猜</b>：“下个月会有几对？”</p>
+    <p>讲解要点：这个月的兔子 = 上个月已有的兔子（兔子不会死）+ 新生的小兔（等于上上个月的兔子数，因为那些兔子现在都成了大兔，每对生一对）。</p>
+    <p>推进到第 8 个月（21 对）后，再按一下出现结论框。“一年后呢？144 对！”</p>
+    <p>如果放了视频文件 videos/01-rabbits.mp4，右上角会出现“🎬 播放视频”按钮。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="找规律">
+  <div class="head"><span class="kicker">小侦探</span><h2>🔍 找规律：下一个数是几？</h2></div>
+  <div class="seq" style="margin:30px 0 70px">
+    <div class="nbox">1</div><div class="nbox">1</div><div class="nbox">2</div><div class="nbox">3</div>
+    <div class="nbox">5</div><div class="nbox">8</div>
+    <div class="nbox q"><span class="qm">?</span><span class="ans step">13</span><span class="plus step">5 + 8</span></div>
+    <div class="nbox q"><span class="qm">?</span><span class="ans step">21</span><span class="plus step">8 + 13</span></div>
+    <div class="nbox q"><span class="qm">?</span><span class="ans step">34</span></div>
+  </div>
+  <div class="callout step">规律：<b>前两个数相加 = 下一个数</b>　1+1=2，1+2=3，2+3=5……</div>
+  <p class="lead step" style="margin-top:24px">这串数叫 <span class="answer">斐波那契数列</span>　大自然好像特别喜欢它们……</p>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b>（含接龙游戏）</p>
+    <p>“把刚才每个月的兔子数写下来：1、1、2、3、5、8……下一个是几？”请举手最快的同学回答。</p>
+    <p>点击依次揭晓 13、（5+8）、21、（8+13）、34，然后出现规律和名字。</p>
+    <p><b>接龙游戏</b>：从第一排开始，每人接着说下一个数：55、89、144、233、377……说错了全班帮忙。到 610 左右就很难了，可以夸：“能算到这里的都是小数学家！”</p>
+    <p>提醒：开场魔术用的也是“前两个数相加”的规则——只是开头的两个数不一样。</p>
+  </aside>
+</section>
+
+<!-- ============================ 第二站（12 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="2" data-title="第二站 · 植物会数数">
+  <div class="ch-num">第二站</div>
+  <h1>植物会数数</h1>
+  <p class="ch-sub">花瓣、种子和叶子里的斐波那契数</p>
+  <p class="ch-time">约 12 分钟 · 请拿出学习单和彩笔</p>
+  <div class="ch-emoji">🌸🌻<br>🌲🍃</div>
+  <aside class="notes"><p>⏱ 10 秒。“兔子只是一道数学题，可大自然里真的藏着这串数。我们去数花瓣！”</p></aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="数花瓣">
+  <div class="head"><span class="kicker">动手数一数</span><h2>🌸 花儿有几片花瓣？</h2></div>
+  <p class="lead small">每组负责数一朵花！数好了点一下花，看看你数得对不对。</p>
+  <div data-demo="flowers"></div>
+  <p class="lead step" style="margin-top:26px">3、5、8、13、21、34……<span class="hl">全都是斐波那契数！</span></p>
+  <aside class="notes">
+    <p>⏱ <b>约 2 分钟</b></p>
+    <p>把 6 朵花分给 6 个小组去数（34 瓣的雏菊很难数，可以说“这是挑战题”，提示：数的时候用手指按住起点）。数完请小组报答案，然后<b>点击那朵花</b>揭晓。翻页笔按“下一步”也会按顺序揭晓。全部揭晓后再按一下，出现结论。</p>
+    <p>严谨一点的说法：<b>很多</b>花的花瓣数是斐波那契数（梅花 5 瓣大家最熟悉），但不是所有花都这样——比如百合看起来有 6 片，其实是 3 片花瓣加 3 片长得像花瓣的萼片。数学家说这是植物生长的一种“倾向”，不是铁律。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="向日葵的秘诀" data-video="videos/02-sunflower.mp4">
+  <div class="head"><span class="kicker">做一回向日葵</span><h2>🌻 向日葵的“排队”秘诀</h2></div>
+  <div class="row grow" data-demo="sunflower"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b>——本集最美的一页，放慢节奏。</p>
+    <p>讲解：“向日葵的种子是从中心一颗一颗长出来的，每长一颗，就<b>转一个同样的角度</b>。转多少度，种子才能排得又密又整齐、不浪费地方？”</p>
+    <p>依次点击预设角度，每次先让学生猜会是什么样：</p>
+    <p>· <b>90°</b>：只长出 4 条直线，中间全是空地 → “太浪费了！”<br>· <b>120°</b>：3 条直线，也不行<br>· <b>135°</b>：8 条弯弯的线，还是有缝<br>· <b>137.5°</b>：哇！密密麻麻、整整齐齐 → 这就是<b>黄金角</b><br>· <b>140°</b>：只差 2.5 度，就又出现了空隙！</p>
+    <p>请一位同学上来拖动滑块，找找还有没有更好的角度（找不到的😄）。</p>
+    <p>（给家长的知识点：137.5° ≈ 360° ÷ 1.618 ÷ 1.618，1.618 就是第三站要讲的黄金比。）</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="动手数螺旋">
+  <div class="head"><span class="kicker">学习单 第 2 题</span><h2>🖍️ 给向日葵涂螺旋，数一数有几条</h2></div>
+  <div class="row grow">
+    <div data-demo="seedHead"></div>
+    <div class="col grow">
+      <ol class="rules card">
+        <li>在学习单的向日葵上，找一颗<b>最外圈</b>的种子</li>
+        <li>顺着弯弯的“路”往中心涂色（每次都挑挨得最近的下一颗）</li>
+        <li>换一种颜色，朝<b>另一个方向</b>再涂一条</li>
+        <li>数一数：每个方向各有几条螺旋？</li>
+      </ol>
+      <div class="callout step">一个方向 <b>21</b> 条，另一个方向 <b>34</b> 条——<br>相邻的两个斐波那契数！</div>
+      <div class="card tint step" style="font-size:26px">🌲 松果、🍍 菠萝、🥦 花椰菜上的螺旋，<br>也常常是 <b>5 和 8</b>、<b>8 和 13</b>！</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 4 分钟</b>（动手环节，最容易超时，3 分钟时提醒“再涂 1 分钟”）</p>
+    <p>学生在学习单第 2 题的向日葵图上涂色。老师在屏幕上点“涂出 21 条”“涂出 34 条”做示范：每种颜色就是一条螺旋。</p>
+    <p>提示：从最外圈开始涂最容易；只需要涂 1～2 条，然后<b>数外圈起点</b>就知道一共有几条。</p>
+    <p>如果带了松果：请各组把松果底部朝上，用彩笔在一条螺旋上点点儿，数一数。常见是 8 条和 13 条（也可能是 5 和 8）。</p>
+    <p>屏幕上的“涂出 13 条”也能看到螺旋，那是更靠近中心的一组——说明向日葵越往外，螺旋条数就越“升级”：13→21→34→55。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="叶子的秘密" data-optional="1">
+  <div class="head"><span class="kicker">植物的小心思</span><h2>🍃 叶子为什么要“转着长”？</h2></div>
+  <div class="row grow">
+    <div data-demo="leaves"></div>
+    <div class="col grow">
+      <div class="card tint">很多植物的叶子是一片一片<b>转着圈</b>往上长的。上面的叶子会挡住下面叶子的阳光……</div>
+      <p class="lead small" style="margin:0">🤔 每片叶子转多少度，下面的叶子<b>晒到的太阳最多</b>？</p>
+      <div class="callout step">又是 <b>137.5°</b>！上下叶子几乎不会正好重叠，<br>每片叶子都能分到阳光 ☀️</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b>（时间紧张时可以跳过）</p>
+    <p>依次点 180°、120°、90°：叶子排成 2 行、3 行、4 行，重叠的地方颜色很深——下面的叶子被挡住了。</p>
+    <p>点 137.5°：叶子均匀地散开，重叠最少。“植物不会算数，可经过千万年的生长，长成这样的植物最能晒到太阳，所以留了下来。”</p>
+  </aside>
+</section>
+
+<!-- ============================ 第三站（10 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="3" data-title="第三站 · 螺旋与黄金比">
+  <div class="ch-num">第三站</div>
+  <h1>螺旋与黄金比</h1>
+  <p class="ch-sub">神奇的 1.618</p>
+  <p class="ch-time">约 10 分钟 · 请拿出直尺</p>
+  <div class="ch-emoji">🐚🌀<br>⭐📏</div>
+  <aside class="notes"><p>⏱ 10 秒。“最后一站：用斐波那契数来<b>画画</b>，还会遇到一个神奇的数。”</p></aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="斐波那契螺旋" data-video="videos/03-nature-spiral.mp4">
+  <div class="head"><span class="kicker">拼一拼</span><h2>🐚 用斐波那契数拼出螺旋</h2></div>
+  <div class="row grow">
+    <div data-demo="fibspiral"></div>
+    <div class="col grow">
+      <div class="card tint">用边长 <b>1、1、2、3、5、8、13……</b> 的正方形一圈一圈拼起来，再在每个正方形里画四分之一圆——</div>
+      <div class="step">
+        <p class="lead small" style="margin:6px 0">大自然里相似的螺旋：</p>
+        <span class="chip">🐚 海螺</span><span class="chip">🌀 台风</span><span class="chip">🌌 星系</span>
+        <span class="chip">🐏 羊角</span><span class="chip">🌿 蕨菜嫩芽</span>
+      </div>
+      <div class="callout step">✏️ 学习单第 3 题：<br>轮到你来画这条螺旋！</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 4 分钟</b>（演示 1 分钟 + 学生画 3 分钟）</p>
+    <p>按“下一步”或“＋ 加一块”，正方形一块一块拼上去，画面会自动缩小。让学生跟着念边长：1、1、2、3、5、8……</p>
+    <p>拼完后按“下一步”出现生活中的螺旋。注意用词：“<b>相似</b>的螺旋”——海螺、台风的螺旋和它很像，但并不都严格等于这条螺旋。</p>
+    <p>再按一下，请学生在学习单第 3 题上画：正方形已经印好了，只要在每个正方形里<b>从一个角到对角画一段四分之一圆弧</b>，连起来就是螺旋（徒手画就行，画得歪也很美）。</p>
+    <p>如果准备了视频（例如下载好的数学之美纪录短片片段），可以在这里点 🎬 播放 1 分钟左右。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="黄金比">
+  <div class="head"><span class="kicker">神奇的 1.618</span><h2>✨ 相邻两个数相除，会发生什么？</h2></div>
+  <div class="row grow">
+    <div class="col grow" data-demo="ratio"></div>
+    <div class="col center step" style="width:560px;flex:none">
+      <div data-demo="pentagram"></div>
+      <div class="callout" style="text-align:left">五角星里：<b style="color:#F04E4B">红线</b> ÷ <b style="color:#12A38A">绿线</b> ≈ 1.618<br>每个正五角星都藏着<b>黄金比</b>！</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 2 分钟</b></p>
+    <p>按“下一步”一行一行算：大数 ÷ 小数。可以请学生用学习单上的空格一起估算（四年级只要比较大小，五六年级可以算一位小数）。让学生注意看数轴上的红点：<b>一会儿大、一会儿小，越来越靠近 1.618</b>。</p>
+    <p>“这个数叫<b>黄金比</b>，大约是 1.618。刚才向日葵的黄金角 137.5°，就是用它算出来的。”</p>
+    <p>再按一下出现五角星：“我们国旗上的五角星里就藏着黄金比——每条线被分成三段，红线 ÷ 绿线，正好约等于 1.618。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="量一量身边的长方形">
+  <div class="head"><span class="kicker">学习单 第 4 题</span><h2>📏 谁最接近 1.618？量一量！</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="card tint" style="font-size:27px">每组选 2 样东西，用直尺量出<b>长</b>和<b>宽</b>，算一算 <b>长 ÷ 宽</b>：</div>
+      <table class="tbl card" style="font-size:28px">
+        <thead><tr><th>东西</th><th>长 ÷ 宽</th><th>接近 1.618 吗？</th></tr></thead>
+        <tbody>
+          <tr><td>💳 银行卡 / 公交卡</td><td class="step">8.56 ÷ 5.4 ≈ 1.59</td><td class="step">很接近 👍</td></tr>
+          <tr><td>🚩 国旗</td><td class="step">3 ÷ 2 = 1.5</td><td class="step">有点接近</td></tr>
+          <tr><td>📺 电视屏幕</td><td class="step">16 ÷ 9 ≈ 1.78</td><td class="step">偏大</td></tr>
+          <tr><td>📄 A4 纸</td><td class="step">29.7 ÷ 21 ≈ 1.41</td><td class="step">不是！它有别的秘密</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col step" style="width:480px;flex:none">
+      <div class="card" style="font-size:26px">
+        <div class="big-emoji">🧐</div>
+        <h3>做个小科学家</h3>
+        有人说“黄金比最美”，其实这只是<b>一种说法</b>，并不是所有好看的东西都用黄金比。<br><br>
+        数学家的习惯是：<b>量一量、算一算，用证据说话！</b>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>各组量课桌上能找到的长方形：课本封面、铅笔盒、橡皮、学生卡、作业本……把结果填在学习单第 4 题。1 分半后请 2～3 组报告“最接近 1.618 的是什么”。</p>
+    <p>然后点击揭晓表格里的参考答案（银行卡、国旗、电视、A4 纸）。</p>
+    <p>A4 纸的秘密：它的长 ÷ 宽约等于 1.414，<b>对折以后形状不变</b>（还是 1.414）——所以 A4 对折正好是 A5。留给感兴趣的同学回家验证。</p>
+    <p>最后一点很重要：网上常说“蒙娜丽莎、金字塔都用了黄金比”，很多其实是牵强附会。鼓励学生<b>用测量验证说法</b>，这就是数学精神。</p>
+  </aside>
+</section>
+
+<!-- ============================ 揭秘与收获（5 分钟） ============================ -->
+
+<section class="slide" data-ch="4" data-title="魔术揭秘">
+  <div class="head"><span class="kicker">真相大白</span><h2>🎩 魔术揭秘：总和 = 11 × 第 7 个数</h2></div>
+  <div class="row grow">
+    <div class="grow" data-demo="fibMagicSecret"></div>
+    <div class="col" style="width:470px;flex:none">
+      <div class="callout step" style="font-size:26px">看中间两列：1、1、2、3、5、8……<br>又是<b>斐波那契数列</b>！</div>
+      <div class="callout step" style="font-size:26px">加起来：55 个“第 1 个数”+ 88 个“第 2 个数”<br>= 11 ×（5 个 + 8 个）<br>= 11 × <b>第 7 个数</b></div>
+      <div class="card tint step" style="font-size:26px">🏠 回家给爸爸妈妈表演！<br>速算 × 11：先 × 10，再加上它自己。</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 2 分钟</b></p>
+    <p>表格会自动用开场时同学选的两个数（没玩的话默认用 3 和 5）。</p>
+    <p>讲法：“每一个数，都是由‘第 1 个数’和‘第 2 个数’拼起来的。比如第 3 个数 = 1 个第 1 个数 + 1 个第 2 个数……看第 7 行：5 个第 1 个数 + 8 个第 2 个数。”</p>
+    <p>点击出现三个结论：中间两列又是斐波那契数；10 个数加起来正好是第 7 个数的 11 倍；回家表演。</p>
+    <p>四年级可以只讲到“表格里藏着斐波那契数，55 和 88 都是 11 的倍数”，五六年级可以完整讲乘法分配律。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="今天的收获">
+  <div class="head"><span class="kicker">回顾</span><h2>🎁 今天我们找到了哪些“密码”？</h2></div>
+  <div class="cards c3">
+    <div class="card"><div class="big-emoji">🐇</div><h3>斐波那契数列</h3>1、1、2、3、5、8、13……<br>前两个数相加 = 下一个数</div>
+    <div class="card step"><div class="big-emoji">🌻</div><h3>黄金角 137.5°</h3>向日葵种子、叶子<br>用它排得又密又匀</div>
+    <div class="card step"><div class="big-emoji">⭐</div><h3>黄金比 1.618</h3>相邻斐波那契数相除<br>越来越接近它</div>
+  </div>
+  <p class="lead step" style="margin-top:40px;text-align:center">“大自然这本书，是用<b>数学的语言</b>写成的。”<br><span class="muted" style="font-size:26px">—— 伽利略</span></p>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>每出现一张卡片，请学生<b>齐声</b>说出关键词：“斐波那契！”“137.5 度！”“1.618！”——用齐答检查效果，气氛也好。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="回家小挑战 & 下集预告">
+  <div class="head"><span class="kicker">带回家</span><h2>🏠 回家小挑战（任选一个）</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="card">
+        <ol class="rules" style="font-size:29px">
+          <li>🎩 给家人表演<b>加法魔术</b>，然后教会他们</li>
+          <li>🌲 数一数松果、菠萝上的<b>螺旋</b>有几条</li>
+          <li>🌼 找 3 种花，数花瓣，看是不是斐波那契数</li>
+          <li>📏 量一量：身高 ÷ 肚脐离地面的高度 ≈ ？</li>
+        </ol>
+      </div>
+      <div class="card tint" style="font-size:24px;line-height:1.55">
+        📚 <b>推荐读物</b>　《数字魔鬼》· 《数学家的眼光》· 《李毓佩数学童话》<br>
+        <span class="muted">家长读：《数学之美》（吴军）</span>
+      </div>
+    </div>
+    <div class="col step" style="width:500px;flex:none">
+      <div class="card" style="font-size:28px;text-align:center;border:4px dashed #12A38A">
+        <div class="ch-num" style="font-size:26px;color:#12A38A;font-weight:900;letter-spacing:4px">下集预告</div>
+        <div class="big-emoji" style="font-size:90px">🌿❄️</div>
+        <h3>第 2 集 · 无穷的图案</h3>
+        电脑用 4 条规则画出一片真实的蕨叶；<br>一片雪花的边，竟然可以<b>无限长</b>……
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>这一页可以请老师拍照发到班级群。学习单背面也印有这些挑战。</p>
+    <p>点一下出现下集预告：“下一次，我们去看一种<b>永远看不完</b>的图案。”</p>
+  </aside>
+</section>
+
+<section class="slide cover" data-ch="4" data-title="谢谢 & 提问">
+  <div class="bg" data-demo="coverSunflower"></div>
+  <div class="cover-text">
+    <div class="pill">谢谢大家！</div>
+    <h1 style="font-size:120px">有问题吗？</h1>
+    <p class="subtitle">数学不只在课本里，<br>它藏在你身边的每一朵花里 🌻</p>
+    <p class="meta">带上你的“数学眼镜” 👓，继续去寻宝吧！</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ 剩余时间用于提问。常见问题的参考回答见“docs/第1集/问答锦囊.md”。</p>
+    <p>答不上来也没关系：“这个问题太棒了，我也不知道！我们回去一起查，下次告诉你。”——这本身就是很好的示范。</p>
+  </aside>
+</section>
+
+<div id="chapterTag"><i></i><span></span></div>
+<div id="progress"></div>
+<div id="pageNo"></div>
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="hud">
+  <button data-act="menu" title="目录（M）">☰</button>
+  <button data-act="prev" title="上一步（←）">◀</button>
+  <span class="count" id="hudCount"></span>
+  <button data-act="next" title="下一步（→ / 空格）">▶</button>
+  <button data-act="fullscreen" title="全屏（F）">⛶</button>
+  <button data-act="presenter" title="讲者视图（P）">🖥</button>
+  <button data-act="help" title="快捷键（H）">？</button>
+</div>
+
+<div id="timerBox"></div>
+<div id="notesPanel"></div>
+<div class="overlay" id="blackout"></div>
+<div class="overlay" id="menuOverlay"><div class="panel" id="menuPanel"></div></div>
+<div class="overlay" id="helpOverlay"><div class="panel">
+  <button class="btn sm close" data-act="closeOverlays">✕ 关闭</button>
+  <h3>⌨️ 快捷键和使用说明</h3>
+  <div class="keys">
+    <span><kbd>→</kbd> <kbd>空格</kbd> <kbd>下翻页</kbd></span><span>下一步（翻页笔可直接用）</span>
+    <span><kbd>←</kbd> <kbd>上翻页</kbd></span><span>上一步</span>
+    <span><kbd>F</kbd></span><span>全屏 / 退出全屏</span>
+    <span><kbd>P</kbd></span><span>打开“讲者视图”窗口（讲稿 + 计时，适合双屏：投影放课件，电脑屏幕看讲稿）</span>
+    <span><kbd>N</kbd></span><span>在本屏幕底部显示/隐藏讲稿（排练用，学生会看到）</span>
+    <span><kbd>T</kbd></span><span>显示/隐藏计时器（第一次翻页时自动开始计时）</span>
+    <span><kbd>M</kbd></span><span>目录：跳到任意一页（标“可跳过”的页面时间紧时可略过）</span>
+    <span><kbd>B</kbd> / <kbd>W</kbd></span><span>黑屏 / 白屏（让学生注意力回到你身上），再按一次恢复</span>
+    <span><kbd>V</kbd></span><span>播放本页视频（仅当 videos 文件夹里放了对应视频时出现 🎬 按钮）</span>
+    <span><kbd>首页键</kbd> / <kbd>尾页键</kbd></span><span>第一页 / 最后一页</span>
+  </div>
+  <p>互动页面上的按钮、滑块、卡片都可以直接用鼠标或触摸屏点击。</p>
+</div></div>
+<div class="overlay" id="videoOverlay"><div class="vbox">
+  <video id="videoEl" controls playsinline></video>
+  <button class="btn" data-act="closeOverlays">✕ 关闭视频（Esc）</button>
+</div></div>
+
+<div id="presenter"></div>
+
+<script src="../../assets/demos.js"></script>
+<script src="../../assets/deck.js"></script>
+</body>
+</html>

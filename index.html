@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数学之美 · 系列课</title>
+<style>
+  :root { --bg: #FFF8EC; --ink: #1E2640; --muted: #5B6275; --line: #EADFCB; --grape: #7B5CF0; --coral: #F04E4B; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 20px 60px; }
+  .pill { display: inline-block; background: var(--ink); color: #fff; font-weight: 700; letter-spacing: 3px; padding: 6px 18px; border-radius: 999px; font-size: 15px; }
+  h1 { font-size: clamp(44px, 8vw, 84px); margin: 14px 0 4px; letter-spacing: 8px; line-height: 1.15;
+    background: linear-gradient(90deg, #7B5CF0, #F04E4B 55%, #FF9F1C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { font-size: 20px; color: var(--muted); margin: 0 0 30px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+  .ep {
+    background: #fff; border-radius: 22px; padding: 20px 22px; box-shadow: 0 8px 24px rgba(60,40,10,.08);
+    display: flex; flex-direction: column; gap: 6px; border: 3px solid transparent;
+  }
+  .ep.ready { border-color: #FFB020; }
+  .ep .no { font-size: 14px; font-weight: 800; color: var(--muted); letter-spacing: 2px; }
+  .ep .emoji { font-size: 44px; line-height: 1.1; }
+  .ep h2 { margin: 0; font-size: 24px; }
+  .ep p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ep .tag { align-self: flex-start; font-size: 13px; font-weight: 800; padding: 2px 10px; border-radius: 999px; background: #F1EEE8; color: var(--muted); margin-top: 4px; }
+  .ep.ready .tag { background: #FFE8B8; color: #9A5B00; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .links a { text-decoration: none; font-weight: 800; font-size: 15px; padding: 8px 14px; border-radius: 12px; background: #F1EEE8; color: var(--ink); }
+  .links a.go { background: var(--grape); color: #fff; font-size: 17px; }
+  section.info { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .box { background: #fff; border-radius: 22px; padding: 20px 24px; box-shadow: 0 8px 24px rgba(60,40,10,.08); }
+  .box h3 { margin: 0 0 8px; font-size: 20px; }
+  .box ol, .box ul { margin: 0; padding-left: 1.3em; }
+  .box a { color: var(--grape); font-weight: 700; }
+  kbd { background: #F1EEE8; border: 1px solid #D8D2C6; border-bottom-width: 3px; border-radius: 6px; padding: 0 6px; font-family: inherit; font-weight: 700; }
+  footer { margin-top: 30px; color: var(--muted); font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="pill">家长进校园 · 小学 4–6 年级</span>
+  <h1>数学之美</h1>
+  <p class="sub">8 集互动数学课，每集约 40 分钟。数学藏在兔子、花朵、纸环、密码和每天用的手机里。</p>
+
+  <div class="grid">
+    <div class="ep ready">
+      <span class="no">第 1 集</span><span class="emoji">🌻</span>
+      <h2>大自然的密码</h2>
+      <p>斐波那契数列、黄金角 137.5°、黄金比 1.618；开场加法魔术。</p>
+      <span class="tag">✅ 可以上课</span>
+      <div class="links">
+        <a class="go" href="episodes/ep01/index.html">▶ 打开课件</a>
+        <a href="printables/ep01-学习单.html">🖨 学习单</a>
+        <a href="docs/第1集/教师手册.md">📘 教师手册</a>
+        <a href="docs/第1集/逐页讲稿.md">📝 讲稿</a>
+      </div>
+    </div>
+    <div class="ep"><span class="no">第 2 集</span><span class="emoji">🌿</span><h2>无穷的图案</h2><p>分形：电脑画的蕨叶、分形树、边长无限的雪花、乱跳跳出的三角形。</p><span class="tag">制作中</span></div>
+    <div class="ep"><span class="no">第 3 集</span><span class="emoji">🎗️</span><h2>神奇的纸环</h2><p>莫比乌斯带三实验、七桥问题与一笔画、甜甜圈和咖啡杯。</p><span class="tag">制作中</span></div>
+    <div class="ep"><span class="no">第 4 集</span><span class="emoji">🔐</span><h2>信息的魔法</h2><p>读心术卡片、二进制灯泡、凯撒密码、质数与手机支付。</p><span class="tag">制作中</span></div>
+    <div class="ep"><span class="no">第 5 集</span><span class="emoji">🦋</span><h2>对称的世界</h2><p>一刀剪出五角星、镜子万花筒、旋转对称、密铺地砖。</p><span class="tag">规划中</span></div>
+    <div class="ep"><span class="no">第 6 集</span><span class="emoji">⭕</span><h2>圆周率的故事</h2><p>绳子绕地球、量瓶盖算 π、割圆术与祖冲之、扔牙签估 π。</p><span class="tag">规划中</span></div>
+    <div class="ep"><span class="no">第 7 集</span><span class="emoji">🎲</span><h2>运气里的数学</h2><p>生日巧合、抛硬币 100 次、两个骰子的点数和、抽奖公平吗。</p><span class="tag">规划中</span></div>
+    <div class="ep"><span class="no">第 8 集</span><span class="emoji">🐝</span><h2>聪明的形状</h2><p>最速降线、蜂巢六边形、肥皂泡、搭多面体与欧拉公式。</p><span class="tag">规划中</span></div>
+  </div>
+
+  <section class="info">
+    <div class="box">
+      <h3>🚀 三步开始上课</h3>
+      <ol>
+        <li>把整个文件夹复制到教室电脑（不需要联网）</li>
+        <li>用 <b>Chrome</b> 或 <b>Edge</b> 打开本页，点“▶ 打开课件”</li>
+        <li>按 <kbd>F</kbd> 全屏，用 <kbd>→</kbd> / 翻页笔翻页；按 <kbd>P</kbd> 打开讲者视图（讲稿 + 计时）</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h3>📚 配套资料</h3>
+      <ul>
+        <li><a href="docs/系列大纲.md">系列大纲（8 集详细规划）</a></li>
+        <li>第 1 集：<a href="docs/第1集/教师手册.md">教师手册</a> · <a href="docs/第1集/问答锦囊.md">问答锦囊</a> · <a href="docs/第1集/AI视频提示词.md">AI 视频提示词</a></li>
+      </ul>
+      <p style="margin:8px 0 0;color:#5B6275;font-size:14px">.md 文件可以用记事本打开，或在 GitHub 网页上直接阅读。</p>
+    </div>
+  </section>
+
+  <footer>数学之美 · 家长进校园互动课 · 课件离线运行，适配投影仪与触摸一体机</footer>
+</div>
+</body>
+</html>

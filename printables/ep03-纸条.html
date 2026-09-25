@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第3集 神奇的纸环 · 实验纸条</title>
+<style>
+  @page { size: A4 landscape; margin: 10mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 277mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; line-height: 1.6; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page { width: 277mm; height: 190mm; margin: 12px auto; background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15); display: flex; flex-direction: column; justify-content: space-between; padding: 1mm 0; }
+  @media print {
+    body { background: #fff; }
+    .tip { display: none; }
+    .page { margin: 0; box-shadow: none; }
+  }
+  .strip { position: relative; height: 30mm; border: 0.4mm solid #1E2640; }
+  .strip .label { position: absolute; left: 14mm; top: 1mm; font-size: 8.5pt; color: #5B6275; }
+  .strip .glue { position: absolute; right: 0; top: 0; bottom: 0; width: 12mm; background: repeating-linear-gradient(45deg, #FFE8B8 0 2mm, #FFF6DB 2mm 4mm); border-left: 0.3mm dashed #E9A400; display: flex; align-items: center; justify-content: center; }
+  .strip .glue span { writing-mode: vertical-rl; font-size: 8pt; color: #9A5B00; letter-spacing: 1px; }
+  .strip .line { position: absolute; left: 0; right: 12mm; border-top: 0.8mm dashed #2F80ED; }
+  .strip .line.third { border-top: 0.8mm dotted #F04E4B; }
+  .strip .n { position: absolute; left: 3mm; top: 50%; transform: translateY(-50%); width: 8mm; height: 8mm; border-radius: 50%; background: #1E2640; color: #fff; font-size: 10pt; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<div class="tip">✂️ 打印说明：A4 纸<b>横向</b>打印，缩放选“实际大小/100%”。每页 6 条纸条，够 <b>2 位同学</b>用（每人 3 条：① 空白、② 印着中线、③ 印着三等分线）。沿外框剪下即可，斜纹部分是粘胶带的位置。
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<div class="page" id="page"></div>
+
+<script>
+  var kinds = [
+    { n: '①', label: '① 普通纸环（直接粘，不扭）', lines: [] },
+    { n: '②', label: '② 莫比乌斯带：扭半圈再粘 → 实验①沿蓝色虚线画线 → 实验②沿蓝色虚线剪开', lines: [['', 50]] },
+    // 莫比乌斯带上，离一边 1/3 的线绕一圈后会接到 2/3 处，所以两条点线其实是同一条剪线
+    { n: '③', label: '③ 挑战：扭半圈再粘 → 沿红色点线一直剪（绕两圈，两条点线会连成一条）', lines: [['third', 100 / 3], ['third', 200 / 3]] }
+  ];
+  var html = '';
+  [0, 1, 2, 0, 1, 2].forEach(function (k) {
+    var d = kinds[k];
+    html += '<div class="strip"><div class="n">' + d.n + '</div><div class="label">' + d.label + '</div>' +
+      d.lines.map(function (l) { return '<div class="line ' + l[0] + '" style="top:' + l[1] + '%"></div>'; }).join('') +
+      '<div class="glue"><span>粘这里</span></div></div>';
+  });
+  document.getElementById('page').innerHTML = html;
+</script>
+</body>
+</html>

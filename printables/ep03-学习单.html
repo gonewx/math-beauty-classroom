@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第3集 神奇的纸环 · 学习单</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 186mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page {
+    width: 186mm; min-height: 271mm; margin: 12px auto; padding: 8mm 9mm;
+    background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: flex; flex-direction: column; gap: 2.5mm;
+  }
+  @media print {
+    body { background: #fff; }
+    .tip { display: none; }
+    .page { margin: 0; box-shadow: none; padding: 0; page-break-after: always; min-height: auto; height: 271mm; }
+  }
+  header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 3px solid #1E2640; padding-bottom: 3mm; }
+  header h1 { margin: 0; font-size: 22pt; letter-spacing: 1px; }
+  header h1 small { font-size: 12pt; font-weight: 700; color: #2F80ED; display: block; letter-spacing: 3px; }
+  header .who { font-size: 12pt; line-height: 2; }
+  header .who span { display: inline-block; width: 30mm; border-bottom: 1px solid #1E2640; }
+  h2 { margin: 0 0 2mm; font-size: 14pt; display: flex; align-items: center; gap: 6px; }
+  h2 .n { background: #1E2640; color: #fff; border-radius: 50%; width: 8mm; height: 8mm; display: inline-flex; align-items: center; justify-content: center; font-size: 12pt; }
+  h2 .opt { font-size: 10pt; color: #5B6275; font-weight: 600; }
+  p { margin: 0 0 2mm; font-size: 11pt; line-height: 1.6; }
+  table { border-collapse: collapse; width: 100%; font-size: 11pt; }
+  th, td { border: 1.5px solid #1E2640; padding: 1.5mm 1.5mm; text-align: center; }
+  th { background: #F1EEE8; font-weight: 700; }
+  td.l { text-align: left; }
+  .fill { display: inline-block; min-width: 14mm; border-bottom: 1.5px solid #1E2640; }
+  .shapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .shape { border: 1.5px solid #1E2640; border-radius: 3mm; padding: 2mm; text-align: center; font-size: 10pt; }
+  .shape b { display: block; font-size: 10.5pt; margin-bottom: 1mm; }
+  .glyphs td { font-size: 22pt; font-weight: 900; padding: 1mm; }
+  .card { border: 2px solid #1E2640; border-radius: 4mm; padding: 3mm 4mm; }
+  .draw { height: 72mm; border: 1.5px dashed #9AA0AE; border-radius: 3mm; }
+  ol { margin: 0; padding-left: 6mm; font-size: 10.5pt; line-height: 1.7; }
+  .cut { border-top: 2px dashed #9AA0AE; margin-top: auto; padding-top: 3mm; position: relative; }
+  .cut::before { content: "✂ 沿虚线剪下，带回家"; position: absolute; top: -9px; left: 8mm; background: #fff; padding: 0 2mm; font-size: 9pt; color: #5B6275; }
+</style>
+</head>
+<body>
+
+<div class="tip">📄 打印说明：A4 纸<b>双面</b>打印（每人 1 张），缩放选“实际大小/100%”。实验用的纸条请另外打印“ep03-纸条”（每页够 2 人用）。
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<!-- ======================= 第 1 页 ======================= -->
+<div class="page">
+  <header>
+    <h1><small>数学之美 · 系列课 第 3 集</small>神奇的纸环 · 学习单</h1>
+    <div class="who">班级 <span></span><br>姓名 <span></span></div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>🎩 纸环魔术：先猜一猜</h2>
+    <p>老师沿中线剪开 3 个纸环，每个会变成什么？</p>
+    <table>
+      <tr><th style="width:22%"></th><th>纸环 ①</th><th>纸环 ②</th><th>纸环 ③</th></tr>
+      <tr><th>我猜</th><td style="height:9mm"></td><td></td><td></td></tr>
+      <tr><th>结果</th><td style="height:9mm"></td><td></td><td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>🔬 莫比乌斯带实验记录</h2>
+    <table>
+      <tr><th style="width:30%">实验</th><th>我的猜想</th><th>实际结果</th></tr>
+      <tr><td class="l">① 沿中线画一条线，笔不离开纸</td><td style="height:9mm"></td><td></td></tr>
+      <tr><td class="l">② 沿中线剪开</td><td style="height:9mm"></td><td></td></tr>
+      <tr><td class="l">③ 沿 1/3 处剪开（挑战）</td><td style="height:9mm"></td><td></td></tr>
+    </table>
+    <p style="margin-top:2mm">莫比乌斯带有 <span class="fill"></span> 个面，<span class="fill"></span> 条边。</p>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>✏️ 一笔画闯关</h2>
+    <p>先数一数每个点连着几条线，找出<b>奇点</b>（连着单数条线的点），再判断能不能一笔画。能的话，用笔画一画！</p>
+    <div class="shapes" id="shapes"></div>
+  </section>
+</div>
+
+<!-- ======================= 第 2 页 ======================= -->
+<div class="page">
+  <section>
+    <h2><span class="n">4</span>🔍 数一数有几个洞</h2>
+    <p>拓扑学家只关心“有几个洞”。数一数下面每个字有几个洞：</p>
+    <table class="glyphs">
+      <tr><td>人</td><td>A</td><td>口</td><td>0</td><td>中</td><td>B</td><td>8</td><td>日</td><td>目</td><td>田</td></tr>
+      <tr style="height:10mm"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p style="margin-top:2mm">我的名字：<span class="fill" style="min-width:40mm"></span>　一共有 <span class="fill"></span> 个洞。</p>
+    <p>和甜甜圈 🍩 “一样”（只有 1 个洞）的东西，我还能想到：<span class="fill" style="min-width:70mm"></span></p>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>🎨 设计一个一笔画图形 <span class="opt">（考考家人）</span></h2>
+    <p>画一个你觉得<b>能</b>一笔画的图形。小提示：奇点要是 0 个或 2 个哦！</p>
+    <div class="draw"></div>
+  </section>
+
+  <div class="cut">
+    <div style="display:flex;gap:5mm">
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🎩 回家表演：纸环魔术</h2>
+        <ol>
+          <li>做 3 个纸环：① 直接粘；② 扭半圈再粘；③ 扭一整圈再粘</li>
+          <li>让家人猜：沿中线剪开会怎样？</li>
+          <li>剪开：① 2 个环；② 1 个大环；③ 2 个套在一起的环</li>
+        </ol>
+        <p style="margin:1mm 0 0;font-size:9.5pt;color:#5B6275">秘密：粘的时候悄悄扭，别让他们看见！</p>
+      </div>
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">✂️ 挑战：双环魔术</h2>
+        <ol>
+          <li>做两个<b>普通</b>纸环（都不扭）</li>
+          <li>把它们像“十”字一样交叉，交叉处用胶带粘牢</li>
+          <li>两个环都沿中线剪开……</li>
+        </ol>
+        <p style="margin:1mm 0 0;font-size:10pt">会变成什么？<span class="fill" style="min-width:30mm"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 第 3 题的 6 个图形（和课件“一笔画闯关”的 6 关一样）
+  var TAU = Math.PI * 2;
+  var LEVELS = [
+    { name: '① 正方形加斜线', nodes: [[0, 0], [1, 0], [1, 1], [0, 1]], edges: [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2]] },
+    { name: '② 小房子', nodes: [[0, 1], [1, 1], [1, 0.42], [0, 0.42], [0.5, 0]], edges: [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2], [1, 3], [3, 4], [4, 2]] },
+    { name: '③ 五角星', nodes: [0, 1, 2, 3, 4].map(function (i) { var a = -Math.PI / 2 + i * TAU / 5; return [0.5 + 0.5 * Math.cos(a), 0.52 + 0.5 * Math.sin(a)]; }), edges: [[0, 2], [2, 4], [4, 1], [1, 3], [3, 0]] },
+    { name: '④ 蝴蝶结', nodes: [[0, 0], [0, 1], [0.5, 0.5], [1, 0], [1, 1]], edges: [[0, 1], [1, 2], [2, 0], [3, 4], [4, 2], [2, 3]] },
+    { name: '⑤ 田字格', nodes: [[0, 0], [0.5, 0], [1, 0], [0, 0.5], [0.5, 0.5], [1, 0.5], [0, 1], [0.5, 1], [1, 1]], edges: [[0, 1], [1, 2], [3, 4], [4, 5], [6, 7], [7, 8], [0, 3], [3, 6], [1, 4], [4, 7], [2, 5], [5, 8]] },
+    { name: '⑥ 哥尼斯堡七桥', nodes: [[0.5, 0], [0.5, 1], [0.12, 0.5], [0.88, 0.5]], edges: [[0, 2], [0, 2], [1, 2], [1, 2], [2, 3], [0, 3], [1, 3]] }
+  ];
+  var S = 27, P = 5, html = '';
+  LEVELS.forEach(function (L) {
+    function pos(i) { return [P + L.nodes[i][0] * S, P + L.nodes[i][1] * S]; }
+    var svg = '<svg width="' + (S + 2 * P) + 'mm" height="' + (S + 2 * P) + 'mm" viewBox="0 0 ' + (S + 2 * P) + ' ' + (S + 2 * P) + '">';
+    L.edges.forEach(function (e, k) {
+      var same = [], idx = 0;
+      L.edges.forEach(function (f, j) { if ((f[0] === e[0] && f[1] === e[1]) || (f[0] === e[1] && f[1] === e[0])) { if (j === k) idx = same.length; same.push(j); } });
+      var p = pos(e[0]), q = pos(e[1]), off = (idx - (same.length - 1) / 2) * 7;
+      var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.hypot(dx, dy);
+      var cx = (p[0] + q[0]) / 2 - dy / len * off, cy = (p[1] + q[1]) / 2 + dx / len * off;
+      svg += '<path d="M' + p[0] + ' ' + p[1] + ' Q' + cx + ' ' + cy + ' ' + q[0] + ' ' + q[1] + '" fill="none" stroke="#1E2640" stroke-width="0.6"/>';
+    });
+    L.nodes.forEach(function (_, i) { var p = pos(i); svg += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="1.3" fill="#1E2640"/>'; });
+    svg += '</svg>';
+    html += '<div class="shape"><b>' + L.name + '</b>' + svg + '<div>奇点 <span class="fill" style="min-width:8mm"></span> 个　□ 能　□ 不能</div></div>';
+  });
+  document.getElementById('shapes').innerHTML = html;
+</script>
+</body>
+</html>

@@ -1455,6 +1455,339 @@
     };
   };
 
+  /* ================= 扭了 k 个半圈的纸环（3D，自动旋转，无按钮） ================= */
+  // data-twists="0/1/2"（扭几个半圈），data-w / data-h（画布大小）
+  function renderBand(ctx, W, H, k, th) {
+    var R = 2, HW = 0.7, NU = 96, NV = 5, D = 9, F = 1050, TILT = 1.02, S = Math.min(W / 540, H / 440);
+    function P(u, v) {
+      var r = R + v * Math.sin(k * u / 2);
+      return [r * Math.cos(u), r * Math.sin(u), v * Math.cos(k * u / 2)];
+    }
+    function xf(p) {
+      var ct = Math.cos(th), st = Math.sin(th);
+      var x1 = p[0] * ct - p[1] * st, y1 = p[0] * st + p[1] * ct, z1 = p[2];
+      var cp = Math.cos(TILT), sp = Math.sin(TILT);
+      return [x1, y1 * cp - z1 * sp, y1 * sp + z1 * cp];
+    }
+    function proj(q) { var s = F / (D + q[1]) * 0.62 * S; return [W / 2 + q[0] * s, H / 2 + 10 * S - q[2] * s]; }
+    var L = [-0.3, -0.8, 0.5], ll = Math.hypot(L[0], L[1], L[2]); L = [L[0] / ll, L[1] / ll, L[2] / ll];
+    var prims = [];
+    for (var i = 0; i < NU; i++) {
+      var u0 = i / NU * TAU, u1 = (i + 1) / NU * TAU;
+      for (var j = 0; j < NV; j++) {
+        var v0 = -HW + j / NV * 2 * HW, v1 = -HW + (j + 1) / NV * 2 * HW;
+        var w = [P(u0, v0), P(u1, v0), P(u1, v1), P(u0, v1)].map(xf);
+        var z = (w[0][1] + w[1][1] + w[2][1] + w[3][1]) / 4;
+        var a = [w[1][0] - w[0][0], w[1][1] - w[0][1], w[1][2] - w[0][2]], b = [w[3][0] - w[0][0], w[3][1] - w[0][1], w[3][2] - w[0][2]];
+        var n = [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+        var nl = Math.hypot(n[0], n[1], n[2]) || 1; n = [n[0] / nl, n[1] / nl, n[2] / nl];
+        var c = [(w[0][0] + w[2][0]) / 2, (w[0][1] + w[2][1]) / 2, (w[0][2] + w[2][2]) / 2];
+        var front = n[0] * -c[0] + n[1] * (-D - c[1]) + n[2] * -c[2] > 0;
+        var lum = 0.62 + 0.38 * Math.abs(n[0] * L[0] + n[1] * L[1] + n[2] * L[2]);
+        var base = k % 2 ? [150, 120, 240] : front ? [70, 140, 240] : [255, 160, 60];
+        prims.push({ z: z, q: w.map(proj), col: 'rgb(' + Math.round(base[0] * lum) + ',' + Math.round(base[1] * lum) + ',' + Math.round(base[2] * lum) + ')' });
+      }
+    }
+    [-HW, HW].forEach(function (v) {
+      for (var i = 0; i < NU; i++) {
+        var a = xf(P(i / NU * TAU, v)), b = xf(P((i + 1) / NU * TAU, v));
+        prims.push({ z: (a[1] + b[1]) / 2 - 0.02, line: [proj(a), proj(b)] });
+      }
+    });
+    prims.sort(function (a, b) { return b.z - a.z; });
+    ctx.clearRect(0, 0, W, H);
+    prims.forEach(function (p) {
+      ctx.beginPath();
+      if (p.line) {
+        ctx.strokeStyle = 'rgba(30,38,64,.85)'; ctx.lineWidth = 2.2 * Math.max(S, 0.5);
+        ctx.moveTo(p.line[0][0], p.line[0][1]); ctx.lineTo(p.line[1][0], p.line[1][1]); ctx.stroke();
+      } else {
+        ctx.fillStyle = p.col; ctx.strokeStyle = p.col; ctx.lineWidth = 1;
+        ctx.moveTo(p.q[0][0], p.q[0][1]); for (var m = 1; m < 4; m++) ctx.lineTo(p.q[m][0], p.q[m][1]);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
+    });
+  }
+  Demos.band = function (el) {
+    var W = +el.getAttribute('data-w') || 400, H = +el.getAttribute('data-h') || 320, k = +el.getAttribute('data-twists') || 0;
+    var c = hiCanvas(W, H), th = 0.6 + k * 0.9;
+    el.appendChild(c);
+    var lp = loop(function () { th += 0.005; renderBand(c.ctx, W, H, k, th); });
+    renderBand(c.ctx, W, H, k, th);
+    return { enter: function () { lp.start(); }, leave: function () { lp.stop(); } };
+  };
+
+  /* ================= 哥尼斯堡七桥：在地图上走一走，再变成点和线 ================= */
+  var KB_NODES = { A: { x: 450, y: 62, name: '北岸' }, B: { x: 450, y: 505, name: '南岸' }, C: { x: 310, y: 280, name: '小岛' }, D: { x: 745, y: 280, name: '东边' } };
+  var KB_BRIDGES = [
+    { a: 'A', b: 'C', x: 250, y: 205, r: 90 }, { a: 'A', b: 'C', x: 380, y: 205, r: 90 },
+    { a: 'B', b: 'C', x: 250, y: 355, r: 90 }, { a: 'B', b: 'C', x: 380, y: 355, r: 90 },
+    { a: 'C', b: 'D', x: 470, y: 280, r: 0 },
+    { a: 'A', b: 'D', x: 660, y: 143, r: 80 }, { a: 'B', b: 'D', x: 660, y: 417, r: 100 }
+  ];
+  Demos.konigsberg = function (el) {
+    var W = 900, H = 560;
+    var c = hiCanvas(W, H), ctx = c.ctx;
+    var graph = el.getAttribute('data-mode') === 'graph' ? 1 : 0, gt = graph, cur = null, used = [], path = [];
+    var info = h('div', { class: 'status-line' });
+    function other(b, n) { return b.a === n ? b.b : b.a; }
+    function degree(n) { return KB_BRIDGES.filter(function (b) { return b.a === n || b.b === n; }).length; }
+    function drawMap() {
+      ctx.fillStyle = '#EDE3C4'; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = '#7FB5EE'; ctx.lineWidth = 58; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      [[[0, 280], [150, 280]], [[150, 280], [190, 205], [430, 205], [470, 235]], [[150, 280], [190, 355], [430, 355], [470, 325]],
+        [[470, 200], [470, 360]], [[470, 210], [620, 150], [920, 95]], [[470, 350], [620, 410], [920, 465]]].forEach(function (pl) {
+        ctx.beginPath(); ctx.moveTo(pl[0][0], pl[0][1]); for (var i = 1; i < pl.length; i++) ctx.lineTo(pl[i][0], pl[i][1]); ctx.stroke();
+      });
+      ctx.font = '800 22px sans-serif'; ctx.fillStyle = 'rgba(30,80,160,.6)'; ctx.textAlign = 'left';
+      ctx.fillText('河', 40, 288);
+      KB_BRIDGES.forEach(function (b, i) {
+        ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r * Math.PI / 180);
+        ctx.fillStyle = used.indexOf(i) >= 0 ? '#F04E4B' : '#9A6B3F';
+        ctx.fillRect(-40, -13, 80, 26);
+        ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = 2; ctx.strokeRect(-40, -13, 80, 26);
+        ctx.restore();
+      });
+    }
+    function edgeCurve(b) {
+      var p = KB_NODES[b.a], q = KB_NODES[b.b];
+      return { p: p, q: q, cx: 2 * b.x - (p.x + q.x) / 2, cy: 2 * b.y - (p.y + q.y) / 2 };
+    }
+    function drawGraph(alpha) {
+      ctx.save(); ctx.globalAlpha = alpha;
+      ctx.fillStyle = 'rgba(255,255,255,.82)'; ctx.fillRect(0, 0, W, H);
+      KB_BRIDGES.forEach(function (b, i) {
+        var e = edgeCurve(b);
+        ctx.strokeStyle = used.indexOf(i) >= 0 ? '#F04E4B' : '#1E2640'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(e.p.x, e.p.y); ctx.quadraticCurveTo(e.cx, e.cy, e.q.x, e.q.y); ctx.stroke();
+      });
+      Object.keys(KB_NODES).forEach(function (k) {
+        var n = KB_NODES[k];
+        ctx.fillStyle = '#2F80ED'; ctx.beginPath(); ctx.arc(n.x, n.y, 20, 0, TAU); ctx.fill();
+        ctx.fillStyle = '#F04E4B'; ctx.font = '900 26px sans-serif'; ctx.textAlign = 'left';
+        var dx = k === 'D' ? 30 : k === 'C' ? -150 : 30;
+        ctx.fillText(degree(k) + ' 条线', n.x + dx, n.y + (k === 'A' ? 12 : k === 'B' ? 8 : 9));
+      });
+      ctx.restore();
+    }
+    function draw() {
+      drawMap();
+      if (gt > 0) drawGraph(gt);
+      Object.keys(KB_NODES).forEach(function (k) {
+        var n = KB_NODES[k];
+        if (gt < 0.5) {
+          ctx.fillStyle = 'rgba(30,38,64,.8)'; ctx.font = '900 26px sans-serif'; ctx.textAlign = 'center';
+          ctx.fillText(n.name, n.x, n.y + 9);
+        }
+      });
+      if (cur) {
+        var n = KB_NODES[cur];
+        ctx.font = '44px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('🚶', n.x + (gt > 0.5 ? 0 : 60), n.y + (gt > 0.5 ? -26 : 14));
+      }
+    }
+    var lp = loop(function () {
+      gt += (graph - gt) * 0.12;
+      if (Math.abs(graph - gt) < 0.01) { gt = graph; draw(); return false; }
+      draw();
+    });
+    function setInfo() {
+      if (!cur) { info.innerHTML = '先<b>点一块陆地</b>（北岸、南岸、小岛、东边）作为起点。'; return; }
+      var left = KB_BRIDGES.length - used.length;
+      var can = KB_BRIDGES.some(function (b, i) { return used.indexOf(i) < 0 && (b.a === cur || b.b === cur); });
+      if (!left) info.innerHTML = '🎉 七座桥全走完了！（真的吗？快告诉大家你是怎么走的！）';
+      else if (!can) info.innerHTML = '😵 没有桥可以走了！还剩 <b>' + left + '</b> 座桥没走过。点“↺ 重来”换个起点试试？';
+      else info.innerHTML = '已经走过 <b>' + used.length + '</b> 座桥，还剩 <b>' + left + '</b> 座。点一座<b>挨着你</b>的桥走过去。';
+    }
+    c.addEventListener('pointerdown', function (e) {
+      var p = pointerPos(c, e);
+      if (!cur) {
+        var best = null, bd = 1e9;
+        Object.keys(KB_NODES).forEach(function (k) { var n = KB_NODES[k], d = Math.hypot(n.x - p.x, n.y - p.y); if (d < bd) { bd = d; best = k; } });
+        if (bd < 150) { cur = best; path = [best]; }
+        setInfo(); draw(); return;
+      }
+      for (var i = 0; i < KB_BRIDGES.length; i++) {
+        var b = KB_BRIDGES[i], hit;
+        if (gt > 0.5) { var e2 = edgeCurve(b), mx = (e2.p.x + 2 * e2.cx + e2.q.x) / 4, my = (e2.p.y + 2 * e2.cy + e2.q.y) / 4; hit = Math.hypot(mx - p.x, my - p.y) < 40; }
+        else hit = Math.hypot(b.x - p.x, b.y - p.y) < 44;
+        if (!hit) continue;
+        if (used.indexOf(i) >= 0) { info.innerHTML = '这座桥已经走过了，每座桥只能走<b>一次</b>哦！'; return; }
+        if (b.a !== cur && b.b !== cur) { info.innerHTML = '这座桥不挨着你现在站的地方（' + KB_NODES[cur].name + '）。'; return; }
+        used.push(i); cur = other(b, cur); path.push(cur);
+        setInfo(); draw(); return;
+      }
+    });
+    function reset() { cur = null; used = []; path = []; setInfo(); draw(); }
+    var modeBtn = btn(graph ? '🗺️ 变回地图' : '⚫ 变成点和线', function () {
+      graph = graph ? 0 : 1; modeBtn.textContent = graph ? '🗺️ 变回地图' : '⚫ 变成点和线'; lp.start();
+    });
+    el.insertBefore(h('div', { class: 'col', style: 'gap:10px' }, box(c, W, H),
+      h('div', { class: 'btns', style: 'align-items:center' }, btn('↺ 重来', reset), modeBtn)), el.firstChild);
+    var side = el.querySelector('.kb-side');
+    if (side) side.insertBefore(info, side.firstChild); else el.appendChild(h('div', { class: 'col grow' }, info));
+    setInfo(); draw();
+    return {};
+  };
+
+  /* ================= 一笔画闯关 ================= */
+  var EULER_LEVELS = [
+    { name: '正方形加一条斜线', nodes: [[0, 0], [1, 0], [1, 1], [0, 1]], edges: [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2]] },
+    { name: '小房子', nodes: [[0, 1], [1, 1], [1, 0.42], [0, 0.42], [0.5, 0]], edges: [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2], [1, 3], [3, 4], [4, 2]] },
+    { name: '五角星', nodes: [0, 1, 2, 3, 4].map(function (i) { var a = -Math.PI / 2 + i * TAU / 5; return [0.5 + 0.5 * Math.cos(a), 0.52 + 0.5 * Math.sin(a)]; }),
+      edges: [[0, 2], [2, 4], [4, 1], [1, 3], [3, 0]] },
+    { name: '蝴蝶结', nodes: [[0, 0], [0, 1], [0.5, 0.5], [1, 0], [1, 1]], edges: [[0, 1], [1, 2], [2, 0], [3, 4], [4, 2], [2, 3]] },
+    { name: '田字格', nodes: [[0, 0], [0.5, 0], [1, 0], [0, 0.5], [0.5, 0.5], [1, 0.5], [0, 1], [0.5, 1], [1, 1]],
+      edges: [[0, 1], [1, 2], [3, 4], [4, 5], [6, 7], [7, 8], [0, 3], [3, 6], [1, 4], [4, 7], [2, 5], [5, 8]] },
+    { name: '哥尼斯堡七桥', nodes: [[0.5, 0], [0.5, 1], [0.12, 0.5], [0.88, 0.5]], labels: ['北岸', '南岸', '小岛', '东边'],
+      edges: [[0, 2], [0, 2], [1, 2], [1, 2], [2, 3], [0, 3], [1, 3]] }
+  ];
+  Demos.euler = function (el) {
+    var W = 640, H = 540, PAD = 80;
+    var c = hiCanvas(W, H), ctx = c.ctx;
+    var lv = 0, cur = null, used = [], showOdd = false, showAns = false;
+    var title = h('h3', { style: 'margin:0' }), info = h('div', { class: 'status-line' }), ans = h('div', { class: 'callout', style: 'font-size:25px;display:none' });
+    function L() { return EULER_LEVELS[lv]; }
+    function pos(i) { var n = L().nodes[i]; return [PAD + n[0] * (W - 2 * PAD), PAD + n[1] * (H - 2 * PAD)]; }
+    function deg(i) { return L().edges.filter(function (e) { return e[0] === i || e[1] === i; }).length; }
+    function oddList() { return L().nodes.map(function (_, i) { return i; }).filter(function (i) { return deg(i) % 2; }); }
+    // 两点之间有几条边、这是第几条：用来把重边画成弯的
+    function curveOf(k) {
+      var e = L().edges[k], same = [], idx = 0;
+      L().edges.forEach(function (f, j) { if ((f[0] === e[0] && f[1] === e[1]) || (f[0] === e[1] && f[1] === e[0])) { if (j === k) idx = same.length; same.push(j); } });
+      var p = pos(e[0]), q = pos(e[1]), off = (idx - (same.length - 1) / 2) * 70;
+      var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.hypot(dx, dy);
+      return { p: p, q: q, cx: (p[0] + q[0]) / 2 - dy / len * off, cy: (p[1] + q[1]) / 2 + dx / len * off };
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, W, H);
+      ctx.lineCap = 'round';
+      L().edges.forEach(function (e, k) {
+        var cv = curveOf(k), u = used.indexOf(k) >= 0;
+        ctx.strokeStyle = u ? '#F04E4B' : '#C9C3B6'; ctx.lineWidth = u ? 10 : 7;
+        ctx.beginPath(); ctx.moveTo(cv.p[0], cv.p[1]); ctx.quadraticCurveTo(cv.cx, cv.cy, cv.q[0], cv.q[1]); ctx.stroke();
+      });
+      L().nodes.forEach(function (_, i) {
+        var p = pos(i), odd = deg(i) % 2;
+        ctx.fillStyle = showOdd && odd ? '#F04E4B' : i === cur ? '#2F80ED' : '#1E2640';
+        ctx.beginPath(); ctx.arc(p[0], p[1], i === cur ? 20 : 15, 0, TAU); ctx.fill();
+        if (showOdd) {
+          ctx.fillStyle = odd ? '#F04E4B' : '#12A38A'; ctx.font = '900 24px sans-serif'; ctx.textAlign = 'center';
+          ctx.fillText(deg(i), p[0] + (p[0] < W / 2 ? -34 : 34), p[1] - 18);
+        }
+        if (L().labels) { ctx.fillStyle = '#5B6275'; ctx.font = '800 20px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(L().labels[i], p[0], p[1] + (p[1] > H / 2 ? 44 : -30)); }
+      });
+    }
+    function setInfo() {
+      title.textContent = '第 ' + (lv + 1) + ' 关 · ' + L().name;
+      var left = L().edges.length - used.length;
+      if (cur === null) info.innerHTML = '点一个<b>点</b>作为起点，再一个一个点相邻的点，把线全部画完，<b>每条线只能画一次</b>。';
+      else if (!left) info.innerHTML = '🎉 <b>一笔画成功！</b>';
+      else if (!L().edges.some(function (e, k) { return used.indexOf(k) < 0 && (e[0] === cur || e[1] === cur); }))
+        info.innerHTML = '😵 卡住了！还有 <b>' + left + '</b> 条线没画。点“↺ 重来”，换个起点试试？';
+      else info.innerHTML = '还剩 <b>' + left + '</b> 条线。';
+      var odd = oddList().length;
+      ans.style.display = showAns ? '' : 'none';
+      ans.innerHTML = odd === 0 ? '奇点 0 个 → <b>能</b>一笔画，从哪个点出发都行！'
+        : odd === 2 ? '奇点 2 个 → <b>能</b>一笔画，要从一个<b>奇点</b>出发，在另一个奇点结束。'
+        : '奇点 ' + odd + ' 个 → <b>不能</b>一笔画，怎么试都不行！';
+    }
+    c.addEventListener('pointerdown', function (e) {
+      var p = pointerPos(c, e), hit = -1;
+      L().nodes.forEach(function (_, i) { var q = pos(i); if (Math.hypot(q[0] - p.x, q[1] - p.y) < 36) hit = i; });
+      if (hit < 0) return;
+      if (cur === null) { cur = hit; }
+      else {
+        var k = -1;
+        L().edges.forEach(function (ed, j) { if (k < 0 && used.indexOf(j) < 0 && ((ed[0] === cur && ed[1] === hit) || (ed[1] === cur && ed[0] === hit))) k = j; });
+        if (k < 0) { info.innerHTML = '这两个点之间<b>没有</b>还没画的线，换一个点试试。'; return; }
+        used.push(k); cur = hit;
+      }
+      setInfo(); draw();
+    });
+    function go(n) { lv = Math.max(0, Math.min(EULER_LEVELS.length - 1, n)); cur = null; used = []; showAns = false; setInfo(); draw(); }
+    var oddBtn = btn('🔴 数一数每个点连几条线', function () { showOdd = !showOdd; oddBtn.classList.toggle('on', showOdd); draw(); }, 'sm');
+    el.appendChild(box(c, W, H));
+    el.appendChild(h('div', { class: 'col grow' }, title, info,
+      h('div', { class: 'btns' }, btn('◀ 上一关', function () { go(lv - 1); }, 'sm'), btn('下一关 ▶', function () { go(lv + 1); }, 'sm primary'), btn('↺ 重来', function () { go(lv); }, 'sm')),
+      h('div', { class: 'btns' }, oddBtn, btn('💡 看答案', function () { showAns = !showAns; setInfo(); }, 'sm')), ans));
+    go(0);
+    return {};
+  };
+
+  /* ================= 甜甜圈变咖啡杯（橡皮泥变形） ================= */
+  Demos.morph = function (el) {
+    var W = 720, H = 520, N = 180;
+    var c = hiCanvas(W, H), ctx = c.ctx;
+    function resample(pts, n) {
+      var seg = [], total = 0;
+      for (var i = 0; i < pts.length; i++) { var a = pts[i], b = pts[(i + 1) % pts.length], d = Math.hypot(b[0] - a[0], b[1] - a[1]); seg.push(d); total += d; }
+      var out = [], k = 0, acc = 0;
+      for (var j = 0; j < n; j++) {
+        var t = j / n * total;
+        while (acc + seg[k] < t) { acc += seg[k]; k++; }
+        var f = (t - acc) / seg[k], p = pts[k], q = pts[(k + 1) % pts.length];
+        out.push([p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f]);
+      }
+      return out;
+    }
+    function circle(cx, cy, r, a0) { var p = []; for (var i = 0; i < 360; i++) { var a = a0 + i / 360 * TAU; p.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } return p; }
+    // 甜甜圈：外圆 + 内圆；咖啡杯（侧面）：杯身 + 把手，把手中间的孔就是那一个“洞”
+    var donutOut = resample(circle(0, 0, 170, -3 * Math.PI / 4), N), donutIn = resample(circle(0, 0, 62, -2 * Math.PI / 3), N);
+    var mugOut = [[-150, -130], [20, -130], [20, -88]];
+    for (var i = 0; i <= 60; i++) { var a = -Math.PI / 2 + i / 60 * Math.PI; mugOut.push([20 + 125 * Math.cos(a), 88 * Math.sin(a)]); }
+    mugOut.push([20, 130], [-150, 130]);
+    var mugIn = [];
+    for (var j = 0; j <= 60; j++) { var b = -Math.PI / 2 + j / 60 * Math.PI; mugIn.push([40 + 82 * Math.cos(b), 50 * Math.sin(b)]); }
+    mugOut = resample(mugOut, N); mugIn = resample(mugIn, N);
+    var t = 0, target = 0;
+    var sl = slider('变一变', 0, 100, 1, 0, function (v) { t = target = v / 100; draw(); }, '%');
+    function lerpC(a, b, f) { return 'rgb(' + [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * f); }).join(',') + ')'; }
+    function draw() {
+      ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#FFFDF7'; ctx.fillRect(0, 0, W, H);
+      var e = t * t * (3 - 2 * t);
+      ctx.save(); ctx.translate(W / 2 + 10, H / 2);
+      ctx.beginPath();
+      [[donutOut, mugOut], [donutIn, mugIn]].forEach(function (pair) {
+        pair[0].forEach(function (p, i) { var q = pair[1][i], x = p[0] + (q[0] - p[0]) * e, y = p[1] + (q[1] - p[1]) * e; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+        ctx.closePath();
+      });
+      ctx.fillStyle = lerpC([222, 150, 80], [76, 139, 245], e); ctx.fill('evenodd');
+      ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(30,38,64,.6)'; ctx.stroke();
+      ctx.restore();
+      ctx.font = '800 26px sans-serif'; ctx.fillStyle = '#1E2640'; ctx.textAlign = 'center';
+      ctx.fillText(e < 0.15 ? '🍩 甜甜圈' : e > 0.85 ? '☕ 咖啡杯（侧面）' : '……捏呀捏……', W / 2, H - 22);
+    }
+    var lp = loop(function () {
+      t += (target - t) * 0.04; if (Math.abs(target - t) < 0.002) t = target;
+      sl.set(Math.round(t * 100)); draw();
+      if (t === target) return false;
+    });
+    function go(v) { target = v; lp.start(); }
+    el.appendChild(h('div', { class: 'col', style: 'gap:10px' }, box(c, W, H),
+      h('div', { class: 'btns' }, btn('☕ 捏成杯子', function () { go(1); }, 'primary'), btn('🍩 变回甜甜圈', function () { go(0); })), sl));
+    draw();
+    return { next: function () { if (target < 1) { go(1); return true; } return false; }, prev: function () { if (target > 0) { go(0); return true; } return false; } };
+  };
+
+  /* ================= 数一数有几个洞 ================= */
+  var HOLE_ITEMS = [['人', 0], ['A', 1], ['口', 1], ['0', 1], ['中', 2], ['B', 2], ['8', 2], ['日', 2], ['目', 3], ['田', 4]];
+  Demos.holes = function (el) {
+    var cards = HOLE_ITEMS.map(function (it) {
+      var badge = h('div', { class: 'fcount' }, '? 个洞');
+      var card = h('div', { class: 'flower', style: 'padding:6px 10px 14px', onclick: function () { open(card); } },
+        h('div', { style: 'font-size:118px;font-weight:900;line-height:1.25;font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif' }, it[0]), badge);
+      card.n = it[1]; card.badge = badge;
+      return card;
+    });
+    function open(card) { if (card.classList.contains('open')) return; card.classList.add('open'); card.badge.textContent = card.n + ' 个洞'; }
+    el.appendChild(h('div', { style: 'display:grid;grid-template-columns:repeat(5,1fr);gap:18px' }, cards));
+    return {
+      next: function () { for (var i = 0; i < cards.length; i++) if (!cards[i].classList.contains('open')) { open(cards[i]); return true; } return false; },
+      prev: function () { for (var i = cards.length - 1; i >= 0; i--) if (cards[i].classList.contains('open')) { cards[i].classList.remove('open'); cards[i].badge.textContent = '? 个洞'; return true; } return false; }
+    };
+  };
+
   /* ================= 二进制灯泡 ================= */
   Demos.bits = function (el) {
     var vals = [16, 8, 4, 2, 1], on = [0, 0, 0, 0, 0];

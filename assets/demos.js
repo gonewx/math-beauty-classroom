@@ -549,25 +549,32 @@
   };
 
   /* ================= 巴恩斯利蕨 ================= */
+  // data-mode="rules"：按“是哪条规则画出的点”上色，用来揭秘“整片叶子 = 茎 + 3 个缩小的自己”
+  var FERN_RULE_COLORS = ['#8A5A2B', '#3BA55C', '#2F80ED', '#F08A00'];
   Demos.fern = function (el) {
     var W = 520, H = 640, TOTAL = 200000;
+    var byRule = el.getAttribute('data-mode') === 'rules';
+    var slow = el.getAttribute('data-speed') === 'slow';   // 开场用：约 15 秒慢慢长出来
     var c = hiCanvas(W, H);
     var x = 0, y = 0, n = 0;
     var ctx = c.ctx;
     function reset() { x = 0; y = 0; n = 0; ctx.fillStyle = '#FBFFF7'; ctx.fillRect(0, 0, W, H); }
     var lp = loop(function () {
-      var per = n < 3000 ? 60 : n < 20000 ? 600 : 2500;
+      var per = byRule ? 4000 : slow ? (n < 1500 ? 10 : n < 20000 ? 100 : 400) : n < 3000 ? 60 : n < 20000 ? 600 : 2500;
       for (var i = 0; i < per && n < TOTAL; i++, n++) {
-        var r = Math.random(), nx, ny;
-        if (r < 0.01) { nx = 0; ny = 0.16 * y; }
-        else if (r < 0.86) { nx = 0.85 * x + 0.04 * y; ny = -0.04 * x + 0.85 * y + 1.6; }
-        else if (r < 0.93) { nx = 0.2 * x - 0.26 * y; ny = 0.23 * x + 0.22 * y + 1.6; }
-        else { nx = -0.15 * x + 0.28 * y; ny = 0.26 * x + 0.24 * y + 0.44; }
+        var r = Math.random(), nx, ny, rule;
+        if (r < 0.01) { nx = 0; ny = 0.16 * y; rule = 0; }
+        else if (r < 0.86) { nx = 0.85 * x + 0.04 * y; ny = -0.04 * x + 0.85 * y + 1.6; rule = 1; }
+        else if (r < 0.93) { nx = 0.2 * x - 0.26 * y; ny = 0.23 * x + 0.22 * y + 1.6; rule = 2; }
+        else { nx = -0.15 * x + 0.28 * y; ny = 0.26 * x + 0.24 * y + 0.44; rule = 3; }
         x = nx; y = ny;
         var px = W / 2 + x * 58, py = H - 14 - y * 61.5;
-        var g = Math.round(110 + 90 * (y / 10));
-        ctx.fillStyle = 'rgb(' + Math.round(40 + 30 * (y / 10)) + ',' + g + ',' + Math.round(50 + 20 * (1 - y / 10)) + ')';
-        ctx.fillRect(px, py, 0.9, 0.9);
+        if (byRule) ctx.fillStyle = FERN_RULE_COLORS[rule];
+        else {
+          var g = Math.round(110 + 90 * (y / 10));
+          ctx.fillStyle = 'rgb(' + Math.round(40 + 30 * (y / 10)) + ',' + g + ',' + Math.round(50 + 20 * (1 - y / 10)) + ')';
+        }
+        ctx.fillRect(px, py, rule === 0 && byRule ? 1.6 : 0.9, 0.9);
       }
       counter.textContent = '已画 ' + n.toLocaleString() + ' 个点';
       if (n >= TOTAL) return false;
@@ -579,6 +586,30 @@
         btn('🌱 重新生长', function () { reset(); lp.start(); }, 'sm'), counter)));
     return {
       enter: function () { if (n < TOTAL) lp.start(); },
+      leave: function () { lp.stop(); }
+    };
+  };
+
+  // 封面装饰：一片慢慢长出来的淡绿色蕨叶
+  Demos.coverFern = function (el) {
+    var W = 700, H = 880;
+    var c = hiCanvas(W, H), ctx = c.ctx, x = 0, y = 0, n = 0, TOTAL = 120000;
+    var lp = loop(function () {
+      for (var i = 0; i < 1200 && n < TOTAL; i++, n++) {
+        var r = Math.random(), nx, ny;
+        if (r < 0.01) { nx = 0; ny = 0.16 * y; }
+        else if (r < 0.86) { nx = 0.85 * x + 0.04 * y; ny = -0.04 * x + 0.85 * y + 1.6; }
+        else if (r < 0.93) { nx = 0.2 * x - 0.26 * y; ny = 0.23 * x + 0.22 * y + 1.6; }
+        else { nx = -0.15 * x + 0.28 * y; ny = 0.26 * x + 0.24 * y + 0.44; }
+        x = nx; y = ny;
+        ctx.fillStyle = 'hsla(' + Math.round(95 + 40 * y / 10) + ',55%,' + Math.round(38 + 18 * y / 10) + '%,.75)';
+        ctx.fillRect(W / 2 + x * 78, H - 20 - y * 84, 1, 1);
+      }
+      if (n >= TOTAL) return false;
+    });
+    el.appendChild(c);
+    return {
+      enter: function () { ctx.clearRect(0, 0, W, H); n = 0; x = 0; y = 0; lp.start(); },
       leave: function () { lp.stop(); }
     };
   };
@@ -1164,6 +1195,264 @@
     el.appendChild(h('div', { class: 'col', style: 'align-items:center;gap:10px' }, box(c, S, S), h('div', { class: 'btns' }, bs)));
     draw();
     return {};
+  };
+
+  /* ================= 谢尔宾斯基三角形（一步步挖洞） ================= */
+  Demos.sierpinski = function (el) {
+    var S = 600, TH = Math.round(560 * Math.sqrt(3) / 2), HGT = TH + 40, MAXIT = 6;
+    var c = hiCanvas(S, HGT);
+    var A = [S / 2, 20], B = [20, 20 + TH], C = [S - 20, 20 + TH];
+    var it = 0;
+    function mid(p, q) { return [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]; }
+    function tri(ctx, a, b, cc, d) {
+      if (d === 0) {
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(cc[0], cc[1]); ctx.closePath(); ctx.fill();
+        return;
+      }
+      var ab = mid(a, b), bc = mid(b, cc), ca = mid(cc, a);
+      tri(ctx, a, ab, ca, d - 1); tri(ctx, ab, b, bc, d - 1); tri(ctx, ca, bc, cc, d - 1);
+    }
+    var tbody = h('tbody'), rows = [];
+    for (var r = 0; r <= MAXIT; r++) {
+      var tr = h('tr', {}, h('td', {}, '第 ' + r + ' 步'), h('td', {}, Math.pow(3, r)),
+        h('td', {}, (Math.round(Math.pow(0.75, r) * 1000) / 10) + '%'));
+      rows.push(tr); tbody.appendChild(tr);
+    }
+    function draw() {
+      var ctx = c.ctx;
+      ctx.clearRect(0, 0, S, HGT);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(C[0], C[1]); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#12A38A';
+      tri(ctx, A, B, C, it);
+      ctx.strokeStyle = '#0B6E5D'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(C[0], C[1]); ctx.closePath(); ctx.stroke();
+      rows.forEach(function (tr, k) { tr.className = k === it ? 'cur' : k > it ? 'hide' : ''; });
+    }
+    function fwd() { if (it < MAXIT) { it++; draw(); return true; } return false; }
+    function back() { if (it > 0) { it--; draw(); return true; } return false; }
+    el.appendChild(box(c, S, HGT));
+    el.appendChild(h('div', { class: 'col grow' },
+      h('div', { class: 'card tint', style: 'font-size:26px' }, '规则：把每个绿色三角形的三条边的', h('b', {}, '中点'), '连起来，', h('b', {}, '挖掉中间'), '那个倒着的三角形。一直重复……'),
+      h('div', { class: 'card', style: 'padding:6px 16px' },
+        h('table', { class: 'tbl compact' }, h('thead', {}, h('tr', {}, h('th', {}, '步骤'), h('th', {}, '绿色三角形个数'), h('th', {}, '剩下的面积'))), tbody)),
+      h('div', { class: 'btns' }, btn('挖一次 ▶', fwd, 'primary'), btn('◀ 上一步', back), btn('↺ 重来', function () { it = 0; draw(); }))
+    ));
+    draw();
+    return { next: fwd, prev: back };
+  };
+
+  /* ================= 海岸线有多长（用不同长度的尺子量） ================= */
+  Demos.coastline = function (el) {
+    var W = 860, H = 520, PX_PER_KM = 2;
+    var c = hiCanvas(W, H);
+    // 固定随机种子，保证每次打开海岸线都一样
+    var seed = 20240917;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    // 随机版“科赫曲线”：每段都在中间随机朝陆地或大海拱出一个弯，弯里再有弯
+    var pts = [[30, 270], [W * 0.36, 230], [W * 0.62, 300], [W - 30, 260]];
+    for (var lv = 0; lv < 5; lv++) {
+      var np = [pts[0]];
+      for (var i = 1; i < pts.length; i++) {
+        var p = pts[i - 1], q = pts[i];
+        var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.hypot(dx, dy);
+        var a = 0.3 + rnd() * 0.08, b = 0.62 + rnd() * 0.08, mid = (a + b) / 2;
+        var hgt = (0.2 + rnd() * 0.16) * len * (rnd() < 0.5 ? -1 : 1);
+        np.push([p[0] + dx * a, p[1] + dy * a]);
+        np.push([p[0] + dx * mid - dy / len * hgt, p[1] + dy * mid + dx / len * hgt]);
+        np.push([p[0] + dx * b, p[1] + dy * b]);
+        np.push(q);
+      }
+      pts = np;
+    }
+    // 用两脚规沿海岸线“走”：每一步都是一把固定长度的尺子
+    function walk(step) {
+      var out = [pts[0].slice()], cur = pts[0], i = 1, total = 0;
+      while (i < pts.length) {
+        var p = pts[i - 1], q = pts[i];
+        if (Math.hypot(q[0] - cur[0], q[1] - cur[1]) < step) { i++; continue; }
+        // 在线段 p→q 上找离 cur 恰好 step 的点
+        var dx = q[0] - p[0], dy = q[1] - p[1], fx = p[0] - cur[0], fy = p[1] - cur[1];
+        var a = dx * dx + dy * dy, b = 2 * (fx * dx + fy * dy), cc = fx * fx + fy * fy - step * step;
+        var t = (-b + Math.sqrt(Math.max(0, b * b - 4 * a * cc))) / (2 * a);
+        cur = [p[0] + dx * t, p[1] + dy * t];
+        out.push(cur); total += step;
+      }
+      var end = pts[pts.length - 1], rest = Math.hypot(end[0] - cur[0], end[1] - cur[1]);
+      if (rest > 0.5) { out.push(end.slice()); total += rest; }
+      return { pts: out, len: total };
+    }
+    var RULERS = [100, 50, 25, 12, 6];
+    var result = null, shownSeg = 0, results = {};
+    function draw() {
+      var ctx = c.ctx;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#CFE8FF'; ctx.fillRect(0, 0, W, H);
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, pts[0][1]);
+      pts.forEach(function (p) { ctx.lineTo(p[0], p[1]); });
+      ctx.lineTo(W, pts[pts.length - 1][1]); ctx.lineTo(W, 0); ctx.closePath();
+      ctx.fillStyle = '#E8DDB5'; ctx.fill();
+      ctx.strokeStyle = '#8A6A3A'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); pts.forEach(function (p, k) { if (k) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); }); ctx.stroke();
+      ctx.font = '800 26px sans-serif'; ctx.fillStyle = 'rgba(90,70,30,.6)'; ctx.fillText('陆地', 40, 60);
+      ctx.fillStyle = 'rgba(30,80,160,.55)'; ctx.fillText('大海', 40, H - 40);
+      // 比例尺
+      ctx.fillStyle = '#1E2640'; ctx.fillRect(W - 230, H - 40, 100 * PX_PER_KM, 6);
+      ctx.font = '700 18px sans-serif'; ctx.fillText('100 公里', W - 170, H - 50);
+      if (result) {
+        ctx.strokeStyle = '#F04E4B'; ctx.lineWidth = 3.5; ctx.lineJoin = 'round';
+        ctx.beginPath();
+        for (var k = 0; k <= shownSeg && k < result.pts.length; k++) {
+          var p = result.pts[k]; if (k) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]);
+        }
+        ctx.stroke();
+        ctx.fillStyle = '#1E2640';
+        for (var m = 0; m <= shownSeg && m < result.pts.length; m++) {
+          ctx.beginPath(); ctx.arc(result.pts[m][0], result.pts[m][1], result.pts.length > 60 ? 2.5 : 5, 0, TAU); ctx.fill();
+        }
+      }
+    }
+    var lp = loop(function () {
+      if (!result) return false;
+      shownSeg += Math.max(1, Math.ceil(result.pts.length / 60));
+      draw();
+      if (shownSeg >= result.pts.length) { renderTable(); return false; }
+    });
+    var tbody = h('tbody');
+    function renderTable() {
+      tbody.innerHTML = '';
+      RULERS.forEach(function (r) {
+        var res = results[r];
+        tbody.appendChild(h('tr', { class: result && result.r === r ? 'cur' : '' }, h('td', {}, r + ' 公里'),
+          h('td', {}, res ? res.steps : '?'), h('td', {}, res ? Math.round(res.len) + ' 公里' : '?')));
+      });
+    }
+    var rbtns = RULERS.map(function (r) {
+      var b = btn(r + ' 公里', function () { measure(r); }, 'sm');
+      b.r = r; return b;
+    });
+    function measure(r) {
+      var w = walk(r * PX_PER_KM);
+      result = { r: r, pts: w.pts };
+      results[r] = { steps: w.pts.length - 1, len: w.len / PX_PER_KM };
+      shownSeg = 0;
+      rbtns.forEach(function (b) { b.classList.toggle('on', b.r === r); });
+      renderTable(); lp.start();
+    }
+    function nextRuler() {
+      for (var i = 0; i < RULERS.length; i++) if (!results[RULERS[i]]) { measure(RULERS[i]); return true; }
+      return false;
+    }
+    el.appendChild(h('div', { class: 'col', style: 'gap:10px' }, box(c, W, H),
+      h('div', { class: 'btns', style: 'align-items:center' }, h('b', { style: 'font-size:24px' }, '📏 尺子长度：'), rbtns)));
+    el.appendChild(h('div', { class: 'col grow' },
+      h('div', { class: 'card', style: 'padding:6px 16px' },
+        h('table', { class: 'tbl compact' }, h('thead', {}, h('tr', {}, h('th', {}, '尺子'), h('th', {}, '量了几步'), h('th', {}, '量出的长度'))), tbody)),
+      h('div', { class: 'card tint', style: 'font-size:25px' }, '🤔 如果换成 1 米长的尺子，', h('br'), '甚至用', h('b', {}, '蚂蚁的步子'), '去量，', h('br'), '海岸线会变成多长？')));
+    renderTable(); draw();
+    return { next: nextRuler, leave: function () { lp.stop(); shownSeg = result ? result.pts.length : 0; draw(); } };
+  };
+
+  /* ================= 曼德博集合：无限放大（像一段视频） ================= */
+  Demos.mandelbrot = function (el) {
+    // 终点是“海马谷”里一个缩小版的曼德博集合（宽约 0.0000039），放大约 34 万倍正好看清它
+    var W = 900, H = 540, DURATION = 40000, ZOOM = 3.4e5, W0 = 3.4;
+    var TX = -0.7436429870371587, TY = 0.1318263708719787;
+    var SX = -0.65, SY = 0;
+    var c = hiCanvas(W, H);
+    // 播放时用低分辨率保证流畅；暂停或播完后，再一行一行补画成高清
+    var levels = [{ w: 450, h: 270 }, { w: 300, h: 180 }, { w: 1200, h: 720 }], q = 0, HI = 2;
+    levels.forEach(function (L) {
+      L.cv = document.createElement('canvas'); L.cv.width = L.w; L.cv.height = L.h;
+      L.ctx = L.cv.getContext('2d'); L.img = L.ctx.createImageData(L.w, L.h);
+    });
+    // 调色板：深蓝 → 白 → 金 → 深红，循环使用
+    var PAL = [];
+    var stops = [[0, [8, 20, 80]], [0.2, [40, 110, 200]], [0.42, [240, 250, 255]], [0.6, [255, 190, 40]], [0.8, [180, 40, 30]], [1, [8, 20, 80]]];
+    for (var i = 0; i < 256; i++) {
+      var t = i / 255, k = 0;
+      while (stops[k + 1][0] < t) k++;
+      var a = stops[k], b = stops[k + 1], f = (t - a[0]) / (b[0] - a[0]);
+      PAL.push([0, 1, 2].map(function (j) { return Math.round(a[1][j] + (b[1][j] - a[1][j]) * f); }));
+    }
+    var elapsed = 0, playing = false, last = null, hiRow = -1;
+    var label = h('div', { class: 'sf-label', style: 'font-size:26px;color:#1E2640' });
+    function fmtZoom(z) {
+      if (z < 1e4) return Math.round(z).toLocaleString();
+      if (z < 1e8) return (Math.round(z / 1e3) / 10) + ' 万';
+      return (Math.round(z / 1e7) / 10) + ' 亿';
+    }
+    function view() {
+      var p = Math.min(1, elapsed / DURATION), zoom = Math.pow(ZOOM, p);
+      return { zoom: zoom, vw: W0 / zoom, cx: TX + (SX - TX) / zoom, cy: TY + (SY - TY) / zoom,
+        maxIt: Math.floor(120 + 180 * Math.log(zoom) / Math.LN10) };
+    }
+    function rows(L, v, y0, y1) {
+      var data = L.img.data, sc = v.vw / L.w, maxIt = v.maxIt;
+      for (var py = y0; py < y1; py++) {
+        var ci = v.cy + (py - L.h / 2) * sc;
+        for (var px = 0; px < L.w; px++) {
+          var cr = v.cx + (px - L.w / 2) * sc, zr = 0, zi = 0, zr2 = 0, zi2 = 0, n = 0;
+          while (n < maxIt && zr2 + zi2 < 256) { zi = 2 * zr * zi + ci; zr = zr2 - zi2 + cr; zr2 = zr * zr; zi2 = zi * zi; n++; }
+          var o = (py * L.w + px) * 4;
+          if (n >= maxIt) { data[o] = 10; data[o + 1] = 12; data[o + 2] = 30; }
+          else {
+            var mu = n + 1 - Math.log(Math.log(Math.sqrt(zr2 + zi2))) / Math.LN2;
+            var col = PAL[Math.floor(mu * 6) & 255];
+            data[o] = col[0]; data[o + 1] = col[1]; data[o + 2] = col[2];
+          }
+          data[o + 3] = 255;
+        }
+      }
+    }
+    function blit(L, y0, y1) {
+      L.ctx.putImageData(L.img, 0, 0, 0, y0, L.w, y1 - y0);
+      c.ctx.imageSmoothingEnabled = true;
+      if (y0 === 0 && y1 === L.h) c.ctx.drawImage(L.cv, 0, 0, W, H);
+      else c.ctx.drawImage(L.cv, 0, y0, L.w, y1 - y0, 0, y0 * H / L.h, W, (y1 - y0) * H / L.h);
+    }
+    function render() {
+      var v = view(), L = levels[q], t0 = performance.now();
+      rows(L, v, 0, L.h); blit(L, 0, L.h);
+      // 电脑慢就降低清晰度，保证动画流畅
+      var dt = performance.now() - t0;
+      if (dt > 70 && q === 0) q = 1; else if (dt < 25 && q === 1) q = 0;
+      label.innerHTML = '已放大 <b style="font-size:34px">' + fmtZoom(v.zoom) + '</b> 倍';
+    }
+    var lp = loop(function (ts) {
+      if (playing) {
+        if (last !== null) elapsed = Math.min(DURATION, elapsed + Math.min(120, ts - last));
+        last = ts;
+        render();
+        if (elapsed >= DURATION) { playing = false; playBtn.textContent = '▶ 播放'; hiRow = 0; }
+        return;
+      }
+      // 高清补画：每帧画几十行，不卡住页面
+      if (hiRow >= 0) {
+        var L = levels[HI], v = view(), t0 = performance.now(), y0 = hiRow;
+        v.maxIt *= 3;
+        while (hiRow < L.h && performance.now() - t0 < 30) { rows(L, v, hiRow, Math.min(L.h, hiRow + 8)); hiRow = Math.min(L.h, hiRow + 8); }
+        blit(L, y0, hiRow);
+        if (hiRow >= L.h) { blit(L, 0, L.h); hiRow = -1; return false; }
+        return;
+      }
+      return false;
+    });
+    function play() {
+      if (elapsed >= DURATION) elapsed = 0;
+      playing = !playing; playBtn.textContent = playing ? '⏸ 暂停' : '▶ 播放';
+      last = null; hiRow = playing ? -1 : 0;
+      lp.start();
+    }
+    var playBtn = btn('▶ 播放', play, 'primary');
+    el.appendChild(h('div', { class: 'col', style: 'gap:10px' }, box(c, W, H),
+      h('div', { class: 'btns', style: 'align-items:center' }, playBtn,
+        btn('↺ 从头开始', function () { elapsed = 0; render(); if (!playing) { hiRow = 0; lp.start(); } }), label)));
+    render();
+    return {
+      enter: function () { if (!playing) { hiRow = 0; lp.start(); } },
+      leave: function () { playing = false; playBtn.textContent = '▶ 播放'; lp.stop(); last = null; hiRow = -1; }
+    };
   };
 
   /* ================= 二进制灯泡 ================= */

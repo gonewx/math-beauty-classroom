@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第2集 无穷的图案 · 数学之美系列课</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<script>
+  // 本集章节与计划时间（合计 40 分钟）
+  window.DECK_CONFIG = {
+    chapters: [
+      { name: '开场', min: 6, color: '#7B5CF0' },
+      { name: '第一站 · 会分身的图形', min: 8, color: '#F08A00' },
+      { name: '第二站 · 雪花与三角形', min: 12, color: '#12A38A' },
+      { name: '第三站 · 无限放大', min: 9, color: '#2F80ED' },
+      { name: '揭秘与收获', min: 5, color: '#F04E4B' }
+    ]
+  };
+</script>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ============================ 开场（6 分钟） ============================ -->
+
+<section class="slide cover" data-ch="0" data-title="封面">
+  <div class="bg" data-demo="coverFern"></div>
+  <div class="cover-text">
+    <div class="pill">数学之美 · 系列课　第 2 集</div>
+    <h1>无穷的图案</h1>
+    <p class="subtitle">越放大，越惊喜——认识“分形”</p>
+    <p class="meta">家长进校园 · 适合 4–6 年级 · 40 分钟<br>今天我们要看一种<b>永远看不完</b>的图案 👀</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b>（学生入座时停在这一页，右边会慢慢长出一片蕨叶。）</p>
+    <p>开场白参考：“同学们好！上次我们在向日葵里找到了斐波那契数。今天是第 2 集，我们要去看一种<b>永远看不完</b>的图案——不管你放大多少倍，里面总有新东西。”</p>
+    <p>课前请班主任分好 4 人小组，每组发：学习单（每人 1 张）、彩笔、直尺、<b>1 个骰子</b>；每人再准备 <b>1 张废纸</b>（A4 或作业本纸，用来对折）。有条件的话带 1 颗西兰花或罗马花椰菜。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="0" data-title="这是照片吗">
+  <div class="head"><span class="kicker">开场投票</span><h2>🌿 这是照片吗？</h2></div>
+  <div class="row grow">
+    <div data-demo="fern" data-speed="slow"></div>
+    <div class="col grow">
+      <p class="lead small" style="margin:0">仔细看这片叶子，你觉得它是——</p>
+      <div class="cards c3" style="gap:16px">
+        <div class="card" style="text-align:center"><div class="big-emoji">📷</div><b>A</b> 拍的照片</div>
+        <div class="card" style="text-align:center"><div class="big-emoji">🎨</div><b>B</b> 画家画的</div>
+        <div class="card" style="text-align:center"><div class="big-emoji">💻</div><b>C</b> 电脑画的</div>
+      </div>
+      <div class="callout step">答案是 <b>C</b>！电脑只用了 <b>4 条简单的规则</b>，<br>点了 <b>20 万个点</b>，就“长”出了这片蕨叶。</div>
+      <div class="card tint step" style="font-size:28px">🤔 是哪 4 条规则？<br><b>下课前揭晓！</b>先记住一个线索：<br>仔细看，<b>每一片小叶子，都像一整片叶子</b>。</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 5 分钟</b>——本集的“钩子”。</p>
+    <p>1. 一进这一页，蕨叶就开始一点点“长”出来（约 15 秒长完）。<b>先别解释</b>，让学生安静看它长出来。</p>
+    <p>2. 投票：“这是照片、画家画的，还是电脑画的？”举手统计 A、B、C 各有多少人。可以请两三位同学说说理由。</p>
+    <p>3. 按“下一步”揭晓：电脑画的！“电脑没有画笔，它只是按 4 条规则，一个点一个点地点了 20 万次。”</p>
+    <p>4. 再按一下：“是哪 4 条规则？<b>下课前揭晓</b>。先给一个线索——请大家看：左下角这一片小叶子，像不像一整片叶子？再看小叶子上的更小的叶子……”请学生到屏幕前指一指。</p>
+    <p>5. 过渡：“这种<b>局部和整体长得一样</b>的图形，数学家给它起了个名字，叫<b>分形</b>。今天我们就去看各种各样的分形。”</p>
+  </aside>
+</section>
+
+<!-- ============================ 第一站（8 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="1" data-title="第一站 · 会分身的图形">
+  <div class="ch-num">第一站</div>
+  <h1>会分身的图形</h1>
+  <p class="ch-sub">一条规则，重复、重复、再重复</p>
+  <p class="ch-time">约 8 分钟 · 请准备一张废纸</p>
+  <div class="ch-emoji">🌳📄<br>🥦⚡</div>
+  <aside class="notes"><p>⏱ 10 秒。“分形是怎么来的？秘诀就两个字：<b>重复</b>。我们先来种一棵树。”</p></aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="分形树">
+  <div class="head"><span class="kicker">请你来当设计师</span><h2>🌳 一条规则，长出一棵树</h2></div>
+  <div class="row grow" data-demo="tree"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>讲规则：“树干分成两根<b>短一点</b>的树枝，然后每根树枝都<b>重复</b>这条规则……就这么简单！”</p>
+    <p>先把“层数”拖到 1、2、3，让学生看清每一层都在“分身”；再拖回 9～10 层。</p>
+    <p>请 1～2 位同学上台（或在触屏上）拖“分叉角度”：角度小 → 像白杨；角度大 → 像一朵西兰花；接近 90° → 变成方方正正的图案。</p>
+    <p>点“🌬 起风”树会摇摆，点“🌸 开花”会开出小花——学生会很喜欢。</p>
+    <p>提问：“每加一层，树枝会多出多少根？”——引出下一页的“翻倍”。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="翻倍的力量">
+  <div class="head"><span class="kicker">动手试一试</span><h2>📄 一张纸，你能对折几次？</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <p class="lead small" style="margin:0">拿出一张纸，每对折一次，数一数有<b>几层</b>：</p>
+      <table class="tbl card" style="font-size:28px">
+        <thead><tr><th>对折次数</th><th>纸的层数</th><th>分形树：这一层新长的树枝</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td class="step">2</td><td class="step">2</td></tr>
+          <tr><td>2</td><td class="step">4</td><td class="step">4</td></tr>
+          <tr><td>3</td><td class="step">8</td><td class="step">8</td></tr>
+          <tr><td>……</td><td class="step">16、32、64……</td><td class="step">……</td></tr>
+          <tr><td>9</td><td class="step">512</td><td class="step">512</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col" style="width:520px;flex:none">
+      <div class="callout step">每次都<b>翻一倍</b>！<br>9 层的分形树一共有<br>1+2+4+…+256 = <b>511</b> 根树枝</div>
+      <div class="card tint step" style="font-size:26px">
+        <div class="big-emoji">🌙</div>
+        如果一张 0.1 毫米厚的纸能对折 <b>42 次</b>，<br>它的厚度会超过<b>地球到月球的距离</b>！
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>全班一起：拿出废纸，对折一次，“几层？”——2 层。再对折，“几层？”——4 层。每说出一个答案按一次“下一步”，表格里就出现一个数。</p>
+    <p>挑战：“谁能对折 8 次？”大多数人折到 6～7 次就折不动了——因为纸已经有 64、128 层那么厚了！</p>
+    <p>出现结论：每次都翻一倍，分形树也是这样：第 1 层 1 根树干，第 2 层 2 根，第 3 层 4 根……9 层加起来一共 511 根（学习单第 1 题）。</p>
+    <p>最后的“月球”冷知识：0.1 毫米 × 2⁴² ≈ 44 万千米，而地球到月球约 38 万千米。学生会“哇”地叫出来。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="身边的分形" data-video="videos/01-romanesco.mp4">
+  <div class="head"><span class="kicker">找一找</span><h2>🔍 大自然里的分形：局部像整体</h2></div>
+  <div class="cards c3" style="flex:1">
+    <div class="card"><div class="big-emoji">🥦</div><h3>罗马花椰菜</h3>每一小朵，都像一整颗</div>
+    <div class="card"><div class="big-emoji">🌳</div><h3>大树</h3>树枝分小枝，小枝分更小的枝</div>
+    <div class="card"><div class="big-emoji">⚡</div><h3>闪电</h3>大岔分小岔，小岔再分岔</div>
+    <div class="card step"><div class="big-emoji">🏞️</div><h3>河流</h3>从飞机上看：大河分小河，像一棵躺着的树</div>
+    <div class="card step"><div class="big-emoji">❄️</div><h3>雪花</h3>尖角上还长着小尖角</div>
+    <div class="card step"><div class="big-emoji">✋</div><h3>你的手背</h3>血管也是一分二、二分四……</div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1.5 分钟</b></p>
+    <p>如果带了西兰花 / 罗马花椰菜：掰下一小朵，和整颗放在一起举高给大家看——“像不像？”再从小朵上掰下更小的一朵。</p>
+    <p>按“下一步”再出现三张：河流、雪花、手背。请大家伸出手，看看手背上的血管是怎么“分岔”的。</p>
+    <p>如果放了视频文件 videos/01-romanesco.mp4，可以在这里播放一段罗马花椰菜的特写。</p>
+  </aside>
+</section>
+
+<!-- ============================ 第二站（12 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="2" data-title="第二站 · 雪花与三角形">
+  <div class="ch-num">第二站</div>
+  <h1>雪花与三角形</h1>
+  <p class="ch-sub">无限长的边，和挖不完的洞</p>
+  <p class="ch-time">约 12 分钟 · 请拿出学习单、直尺和骰子</p>
+  <div class="ch-emoji">❄️🔺<br>🎲✏️</div>
+  <aside class="notes"><p>⏱ 10 秒。“第二站，我们来做两个有点‘烧脑’的实验。”</p></aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="科赫雪花">
+  <div class="head"><span class="kicker">脑洞时间</span><h2>❄️ 一片雪花的边，能有无限长吗？</h2></div>
+  <div class="row grow" data-demo="koch"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>规则：把每条边三等分，在中间那段上“长出”一个小三角形尖角。重复。</p>
+    <p>按“下一步”一步一步画，<b>每一步先让学生算周长</b>，写在学习单第 2 题：27 ÷ 3 × 4 = 36，36 ÷ 3 × 4 = 48，48 ÷ 3 × 4 = 64……（四年级可以说“每次都多出三分之一”。）</p>
+    <p>画完第 5 步后再按“下一步”出现结论：“如果一直画下去，周长会<b>无限长</b>！可是整片雪花<b>永远跑不出这个虚线圆</b>，所以它的面积是有限的。”</p>
+    <p>“一个面积有限的图形，边却可以无限长——这就是数学的想象力！这片雪花是瑞典数学家科赫在 1904 年想出来的，所以叫<b>科赫雪花</b>。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="谢尔宾斯基三角形">
+  <div class="head"><span class="kicker">挖呀挖</span><h2>🔺 一直挖洞，三角形会被挖光吗？</h2></div>
+  <div class="row grow" data-demo="sierpinski"></div>
+  <p class="lead small step" style="margin:10px 0 0">一直挖下去：面积越来越小，接近 <b>0</b>；可三角形却越来越多，<b>无穷多</b>个！它叫<span class="answer" style="font-size:28px">谢尔宾斯基三角形</span></p>
+  <aside class="notes">
+    <p>⏱ <b>约 2 分钟</b></p>
+    <p>规则：连接三条边的中点，把中间那个倒三角形“挖掉”。剩下 3 个小三角形，每个再重复。</p>
+    <p>按“下一步”一次挖一层。每次先问：“挖完以后有几个绿色三角形？”——1、3、9、27……每次 × 3。</p>
+    <p>再看最右一列：每挖一次，面积只剩原来的四分之三：100% → 75% → 56% → 42% ……</p>
+    <p>全部挖完后按“下一步”出现结论：“面积越来越接近 0，三角形的个数却越来越多——又是一个奇妙的‘无限’。它是波兰数学家谢尔宾斯基在 1915 年研究的。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="动手画三角形">
+  <div class="head"><span class="kicker">学习单 第 3 题</span><h2>✏️ 亲手画一个谢尔宾斯基三角形</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="make-steps">
+        <div class="ms"><span class="n">1</span>用直尺把大三角形三条边的<b>中点</b>连起来（中点已经标好了）</div>
+        <div class="ms"><span class="n">2</span>中间那个<b>倒三角形</b>不涂色，其余 3 个角上的三角形涂上颜色</div>
+        <div class="ms"><span class="n">3</span>在每个涂色的三角形里，再找中点、连线、挖掉中间……</div>
+        <div class="ms"><span class="n">4</span>能画到第几层？数一数一共有多少个涂色的小三角形！</div>
+      </div>
+    </div>
+    <div class="col step" style="width:480px;flex:none">
+      <div class="callout">第 1 层：3 个<br>第 2 层：9 个<br>第 3 层：<b>27</b> 个<br>第 4 层：<b>81</b> 个 🏆</div>
+      <div class="card tint" style="font-size:24px">小技巧：找中点时，用直尺量出边长，再除以 2。</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 4 分钟</b>（动手环节，3 分钟时提醒“再画 1 分钟”）</p>
+    <p>学习单第 3 题已经印好了一个大三角形，第一层的三个中点标了圆点，学生只要连线就能开始。第二层以后需要自己找中点（五六年级可以用直尺量，四年级可以目测）。</p>
+    <p>巡视时鼓励：画到第 3 层（27 个小三角形）就很棒了，画到第 4 层（81 个）是“挑战王”。</p>
+    <p>最后按“下一步”出现参考答案，请画到第 4 层的同学举手。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="混沌游戏">
+  <div class="head"><span class="kicker">掷骰子大挑战</span><h2>🎲 乱跳一万次，会跳出什么？</h2></div>
+  <div class="row grow" data-demo="chaos"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 2.5 分钟</b></p>
+    <p>讲规则：随便选一个起点（请一位同学<b>在画布上点一下</b>）。掷骰子：1、2 跳向 A，3、4 跳向 B，5、6 跳向 C——但每次只跳<b>一半的路</b>，并留下一个点。</p>
+    <p>请一个小组的同学<b>掷真骰子</b>，报出点数，老师点“🎲 掷一次”（屏幕上的点数是电脑随机掷的，和真骰子不一样也没关系，说明规则就好）。慢慢演示 3～5 次，让学生看清“跳一半”。</p>
+    <p>按“下一步”出现投票：跳一万次后会出现什么？A. 乱糟糟的一团　B. 一个圆　C. 别的图案？举手投票。</p>
+    <p>点“×100”“×10000”快速揭晓：出现了刚才挖洞挖出来的<b>谢尔宾斯基三角形</b>！“随机乱跳，竟然跳出了规律。”</p>
+    <p>（伏笔：开场蕨叶的秘密，其实和这个游戏是同一个道理——结尾揭秘时会呼应。）</p>
+  </aside>
+</section>
+
+<!-- ============================ 第三站（9 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="3" data-title="第三站 · 无限放大">
+  <div class="ch-num">第三站</div>
+  <h1>无限放大</h1>
+  <p class="ch-sub">海岸线有多长？放大几十万倍会看到什么？</p>
+  <p class="ch-time">约 9 分钟</p>
+  <div class="ch-emoji">🏖️🔍<br>🌀📱</div>
+  <aside class="notes"><p>⏱ 10 秒。“最后一站，我们带上放大镜，去看看分形到底有多‘深’。”</p></aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="海岸线有多长" data-video="videos/02-coastline.mp4">
+  <div class="head"><span class="kicker">真实的难题</span><h2>🏖️ 海岸线有多长？换把尺子试试！</h2></div>
+  <div class="row grow" data-demo="coastline"></div>
+  <p class="lead small step" style="margin:8px 0 0">尺子越短，量出来的海岸线<b>越长</b>！因为海岸线是弯弯曲曲的分形，越短的尺子能“钻进”越小的弯里。</p>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>讲故事：“1967 年，数学家曼德博问了一个问题：英国的海岸线有多长？大家都觉得查一下地图就知道了，结果不同的人量出来的答案差得很远。为什么？”</p>
+    <p>先点“100 公里”：一把 100 公里长的尺子沿着海岸线一步一步量，红线就是量的结果。表格里记下量了几步、总长多少。</p>
+    <p>然后<b>先让学生猜</b>：“换一把 50 公里的尺子，量出来会更长、更短，还是一样？”再点“50 公里”。依次点 25、12、6 公里（翻页笔按“下一步”也会依次量）。</p>
+    <p>全部量完按“下一步”出现结论：尺子越短，量出来越长。“真正的海岸线弯里有弯、湾里有湾，是一个分形，所以它的长度取决于你用多长的尺子。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="无限放大" data-video="videos/03-fractal-zoom.mp4">
+  <div class="head"><span class="kicker">数学大片</span><h2>🌀 放大，放大，再放大……</h2></div>
+  <div class="row grow">
+    <div data-demo="mandelbrot"></div>
+    <div class="col grow">
+      <div class="card tint" style="font-size:25px">这幅图叫<b>曼德博集合</b>。它是电脑用<b>一个很短的公式</b>，反复计算画出来的：<br>一个数<b>自己乘自己</b>，再<b>加上一个数</b>，一直重复……</div>
+      <div class="callout step" style="font-size:26px">放大几十万倍，<br>一路都有<b>新的花纹</b>，<br>最后还藏着一个<b>缩小版的自己</b>！</div>
+      <div class="card step" style="font-size:25px">🗺️ 如果把最开始的图放大到一个足球场那么大，最后看到的这一小块，只有<b>一粒细沙</b>那么大！</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 3.5 分钟</b>——这是本集的“大片时间”。</p>
+    <p>点“▶ 播放”，画面会自动一路放大约 34 万倍，大约 40 秒。<b>建议关灯或拉窗帘</b>，效果更好。播放时不用多讲，只提醒大家看两件事：①会不会出现新的花纹？②最后能不能找到一个和最开始<b>一模一样形状</b>的“小黑点”？（结尾画面中间就是一个缩小了几十万倍的曼德博集合！）</p>
+    <p>放完后按“下一步”出现两个结论。讲解：“这张图叫曼德博集合，就是刚才问海岸线的那位数学家曼德博研究的。它只用了一个很短的公式，可你放大多少倍，都看不完它的细节。”</p>
+    <p>可以随时点“⏸ 暂停”，请学生找一找画面里像海马、像螺旋、像闪电的地方。</p>
+    <p>（家长知识点：公式是 z → z² + c。画面的颜色表示这个点“逃出去”的快慢，黑色表示永远逃不出去——那些点属于曼德博集合。）</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="分形有什么用" data-optional="1">
+  <div class="head"><span class="kicker">它有什么用？</span><h2>🛠️ 分形可不只是好看</h2></div>
+  <div class="cards c4" style="align-items:start">
+    <div class="card"><div class="big-emoji">📱</div><h3>手机天线</h3>把天线做成分形的形状，小小一块就能接收很多种信号。</div>
+    <div class="card step"><div class="big-emoji">🎬</div><h3>电影特效</h3>电影里的高山、云朵、树林，很多是电脑用分形“长”出来的。</div>
+    <div class="card step"><div class="big-emoji">🩺</div><h3>医学研究</h3>肺和血管都是分形，医生用分形来研究它们是否健康。</div>
+    <div class="card step"><div class="big-emoji">🌱</div><h3>大自然的设计</h3>树根、叶脉像分形一样分岔，能把水和养分送到每个角落。</div>
+  </div>
+  <p class="lead step" style="margin-top:36px;text-align:center">数学家研究的“怪图形”，后来都派上了<b>大用场</b>。</p>
+  <aside class="notes">
+    <p>⏱ <b>约 1.5 分钟</b>（时间紧可以跳过）</p>
+    <p>“数学家研究的‘怪图形’，后来都派上了大用场。”依次按“下一步”出现四张卡片，每张用一句话讲完。</p>
+    <p>可以问：“为什么树要长成分形的样子？”——这样用最少的‘树枝’，就能让叶子铺满最大的地方晒太阳。</p>
+  </aside>
+</section>
+
+<!-- ============================ 揭秘与收获（5 分钟） ============================ -->
+
+<section class="slide" data-ch="4" data-title="蕨叶揭秘">
+  <div class="head"><span class="kicker">真相大白</span><h2>🌿 揭秘：蕨叶的 4 条规则</h2></div>
+  <div class="row grow">
+    <div data-demo="fern" data-mode="rules"></div>
+    <div class="col grow" style="gap:14px">
+      <div class="card" style="font-size:25px;padding:14px 22px"><i class="dot" style="background:#8A5A2B"></i><b style="color:#8A5A2B">规则 1</b>：把整片叶子压扁成一根线 → <b style="color:#8A5A2B">茎</b></div>
+      <div class="card" style="font-size:25px;padding:14px 22px"><i class="dot" style="background:#3BA55C"></i><b style="color:#3BA55C">规则 2</b>：整片叶子缩小一点点，往上挪 → <b style="color:#3BA55C">上面的大部分</b></div>
+      <div class="card" style="font-size:25px;padding:14px 22px"><i class="dot" style="background:#2F80ED"></i><b style="color:#2F80ED">规则 3</b>：缩得很小，向左转 → <b style="color:#2F80ED">左下的小叶</b></div>
+      <div class="card" style="font-size:25px;padding:14px 22px"><i class="dot" style="background:#F08A00"></i><b style="color:#F08A00">规则 4</b>：缩得很小，向右转 → <b style="color:#F08A00">右下的小叶</b></div>
+      <div class="callout step" style="font-size:27px">整片蕨叶 = 茎 + <b>3 个缩小的自己</b>！<br>电脑每次随机选一条规则跳一步——和刚才的<b>掷骰子游戏</b>是同一个道理。</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 2.5 分钟</b></p>
+    <p>“开场的问题：电脑是怎么画出蕨叶的？”这一页的蕨叶会很快画出来，并且<b>按规则涂上 4 种颜色</b>。</p>
+    <p>逐条讲：棕色是茎；绿色部分是“整片叶子缩小一点点、往上挪”；蓝色是“缩得很小、向左转”；橙色是“缩得很小、向右转”。请学生看：蓝色的小叶子是不是长得和整片叶子一模一样？</p>
+    <p>按“下一步”出现结论：“整片蕨叶，就是茎加上 3 个缩小的自己。电脑每一步随机选一条规则跳一下，跳 20 万次，蕨叶就长出来了——和刚才掷骰子跳出三角形是同一个道理！”</p>
+    <p>（家长知识点：这叫“迭代函数系统”，由数学家巴恩斯利在 1988 年提出；4 条规则各自被选中的概率约为 1%、85%、7%、7%。）</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="今天的收获">
+  <div class="head"><span class="kicker">回顾</span><h2>🎁 今天我们看到了哪些“无穷”？</h2></div>
+  <div class="cards c3">
+    <div class="card"><div class="big-emoji">🌳</div><h3>分形</h3>局部像整体<br>一条规则，不停重复</div>
+    <div class="card step"><div class="big-emoji">❄️</div><h3>无限长的边</h3>科赫雪花的周长无限长<br>面积却是有限的</div>
+    <div class="card step"><div class="big-emoji">🌀</div><h3>无限的细节</h3>海岸线越量越长<br>放大几十万倍还有新花纹</div>
+  </div>
+  <p class="lead step" style="margin-top:40px;text-align:center">“云不是球，山不是锥，海岸线不是圆，<br>闪电也不是沿着直线走的。”<br><span class="muted" style="font-size:26px">—— 曼德博（“分形”这个名字就是他起的）</span></p>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>每出现一张卡片，请学生<b>齐声</b>说出关键词：“分形！”“无限长！”“放大！”</p>
+    <p>最后念曼德博的话：“大自然里的形状，大多不是课本里的圆和三角形，而是分形。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="回家小挑战 & 下集预告">
+  <div class="head"><span class="kicker">带回家</span><h2>🏠 回家小挑战（任选一个）</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="card">
+        <ol class="rules" style="font-size:29px">
+          <li>🥦 买菜时找一颗<b>西兰花或花椰菜</b>，掰一小朵和整颗比一比</li>
+          <li>📄 和家人比赛：一张纸<b>最多能对折几次</b>？</li>
+          <li>✏️ 把学习单上的三角形画到<b>第 4 层</b>（81 个）</li>
+          <li>🔍 在家里、路上找 3 个<b>分形</b>，画下来</li>
+        </ol>
+      </div>
+      <div class="card tint" style="font-size:24px;line-height:1.55">
+        📚 <b>推荐读物</b>　《数字魔鬼》· 《从一到无穷大》（五六年级挑战）<br>
+        🎬 <b>推荐视频</b>　在视频网站搜索“曼德博集合 放大”
+      </div>
+    </div>
+    <div class="col step" style="width:500px;flex:none">
+      <div class="card" style="font-size:28px;text-align:center;border:4px dashed #2F80ED">
+        <div class="ch-num" style="font-size:26px;color:#2F80ED;font-weight:900;letter-spacing:4px">下集预告</div>
+        <div class="big-emoji" style="font-size:90px">🎗️🐜</div>
+        <h3>第 3 集 · 神奇的纸环</h3>
+        一张纸条，怎么会<b>只有一个面</b>？<br>剪开一个纸环，为什么还是<b>一个环</b>？
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>这一页可以请老师拍照发到班级群。学习单背面也印有这些挑战。</p>
+    <p>点一下出现下集预告：“下一次，我们只用一张纸条、一把剪刀，就能变出让大人都想不通的魔术。”</p>
+  </aside>
+</section>
+
+<section class="slide cover" data-ch="4" data-title="谢谢 & 提问">
+  <div class="bg" data-demo="coverFern"></div>
+  <div class="cover-text">
+    <div class="pill">谢谢大家！</div>
+    <h1 style="font-size:120px">有问题吗？</h1>
+    <p class="subtitle">大自然里的形状，<br>藏着看不完的数学 🌿</p>
+    <p class="meta">带上你的“数学放大镜” 🔍，继续去寻宝吧！</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ 剩余时间用于提问。常见问题的参考回答见“docs/第2集/问答锦囊.md”。</p>
+    <p>答不上来也没关系：“这个问题太棒了，我也不知道！我们回去一起查，下次告诉你。”</p>
+  </aside>
+</section>
+
+<div id="chapterTag"><i></i><span></span></div>
+<div id="progress"></div>
+<div id="pageNo"></div>
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="hud">
+  <button data-act="menu" title="目录（M）">☰</button>
+  <button data-act="prev" title="上一步（←）">◀</button>
+  <span class="count" id="hudCount"></span>
+  <button data-act="next" title="下一步（→ / 空格）">▶</button>
+  <button data-act="fullscreen" title="全屏（F）">⛶</button>
+  <button data-act="presenter" title="讲者视图（P）">🖥</button>
+  <button data-act="help" title="快捷键（H）">？</button>
+</div>
+
+<div id="timerBox"></div>
+<div id="notesPanel"></div>
+<div class="overlay" id="blackout"></div>
+<div class="overlay" id="menuOverlay"><div class="panel" id="menuPanel"></div></div>
+<div class="overlay" id="helpOverlay"><div class="panel">
+  <button class="btn sm close" data-act="closeOverlays">✕ 关闭</button>
+  <h3>⌨️ 快捷键和使用说明</h3>
+  <div class="keys">
+    <span><kbd>→</kbd> <kbd>空格</kbd> <kbd>下翻页</kbd></span><span>下一步（翻页笔可直接用）</span>
+    <span><kbd>←</kbd> <kbd>上翻页</kbd></span><span>上一步</span>
+    <span><kbd>F</kbd></span><span>全屏 / 退出全屏</span>
+    <span><kbd>P</kbd></span><span>打开“讲者视图”窗口（讲稿 + 计时，适合双屏：投影放课件，电脑屏幕看讲稿）</span>
+    <span><kbd>N</kbd></span><span>在本屏幕底部显示/隐藏讲稿（排练用，学生会看到）</span>
+    <span><kbd>T</kbd></span><span>显示/隐藏计时器（第一次翻页时自动开始计时）</span>
+    <span><kbd>M</kbd></span><span>目录：跳到任意一页（标“可跳过”的页面时间紧时可略过）</span>
+    <span><kbd>B</kbd> / <kbd>W</kbd></span><span>黑屏 / 白屏（让学生注意力回到你身上），再按一次恢复</span>
+    <span><kbd>V</kbd></span><span>播放本页视频（仅当 videos 文件夹里放了对应视频时出现 🎬 按钮）</span>
+    <span><kbd>首页键</kbd> / <kbd>尾页键</kbd></span><span>第一页 / 最后一页</span>
+  </div>
+  <p>互动页面上的按钮、滑块、卡片都可以直接用鼠标或触摸屏点击。</p>
+</div></div>
+<div class="overlay" id="videoOverlay"><div class="vbox">
+  <video id="videoEl" controls playsinline></video>
+  <button class="btn" data-act="closeOverlays">✕ 关闭视频（Esc）</button>
+</div></div>
+
+<div id="presenter"></div>
+
+<script src="../../assets/demos.js"></script>
+<script src="../../assets/deck.js"></script>
+</body>
+</html>

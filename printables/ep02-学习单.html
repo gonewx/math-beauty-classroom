@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第2集 无穷的图案 · 学习单</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 186mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page {
+    width: 186mm; min-height: 271mm; margin: 12px auto; padding: 8mm 9mm;
+    background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: flex; flex-direction: column; gap: 3.5mm;
+  }
+  @media print {
+    body { background: #fff; }
+    .tip { display: none; }
+    .page { margin: 0; box-shadow: none; padding: 0; page-break-after: always; min-height: auto; height: 271mm; }
+  }
+  header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 3px solid #1E2640; padding-bottom: 3mm; }
+  header h1 { margin: 0; font-size: 22pt; letter-spacing: 1px; }
+  header h1 small { font-size: 12pt; font-weight: 700; color: #12A38A; display: block; letter-spacing: 3px; }
+  header .who { font-size: 12pt; line-height: 2; }
+  header .who span { display: inline-block; width: 30mm; border-bottom: 1px solid #1E2640; }
+  h2 { margin: 0 0 2mm; font-size: 14pt; display: flex; align-items: center; gap: 6px; }
+  h2 .n { background: #1E2640; color: #fff; border-radius: 50%; width: 8mm; height: 8mm; display: inline-flex; align-items: center; justify-content: center; font-size: 12pt; }
+  h2 .opt { font-size: 10pt; color: #5B6275; font-weight: 600; }
+  p { margin: 0 0 2mm; font-size: 11pt; line-height: 1.6; }
+  table { border-collapse: collapse; width: 100%; font-size: 11pt; }
+  th, td { border: 1.5px solid #1E2640; padding: 1.8mm 1mm; text-align: center; }
+  th { background: #F1EEE8; font-weight: 700; }
+  td.given { color: #5B6275; }
+  .fill { display: inline-block; min-width: 14mm; border-bottom: 1.5px solid #1E2640; }
+  .chain { display: flex; align-items: center; gap: 2mm; font-size: 12pt; flex-wrap: wrap; }
+  .chain b { display: inline-flex; width: 16mm; height: 10mm; border: 2px solid #1E2640; border-radius: 3mm; align-items: center; justify-content: center; }
+  .chain b.given { border-color: #9AA0AE; color: #5B6275; font-weight: 700; }
+  .center { display: flex; justify-content: center; }
+  .card { border: 2px solid #1E2640; border-radius: 4mm; padding: 3mm 4mm; }
+  .boxes3 { display: flex; gap: 4mm; }
+  .boxes3 div { flex: 1; height: 32mm; border: 1.5px dashed #9AA0AE; border-radius: 3mm; position: relative; }
+  .boxes3 div span { position: absolute; left: 2mm; bottom: 1.5mm; font-size: 9pt; color: #5B6275; }
+  ol { margin: 0; padding-left: 6mm; font-size: 11pt; line-height: 1.8; }
+  .cut { border-top: 2px dashed #9AA0AE; margin-top: auto; padding-top: 3mm; position: relative; }
+  .cut::before { content: "✂ 沿虚线剪下，带回家"; position: absolute; top: -9px; left: 8mm; background: #fff; padding: 0 2mm; font-size: 9pt; color: #5B6275; }
+</style>
+</head>
+<body>
+
+<div class="tip">📄 打印说明：用 A4 纸<b>双面</b>打印（每人 1 张），打印时“缩放”选“实际大小/100%”，勾选“背景图形”。三角形是按毫米画的，可以直接用直尺量中点。
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<!-- ======================= 第 1 页 ======================= -->
+<div class="page">
+  <header>
+    <h1><small>数学之美 · 系列课 第 2 集</small>无穷的图案 · 学习单</h1>
+    <div class="who">班级 <span></span><br>姓名 <span></span></div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>📄 对折一张纸</h2>
+    <p>每对折一次，纸会有几层？边折边填：</p>
+    <table>
+      <tr><th style="width:22%">对折次数</th><td class="given">0</td><td class="given">1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+      <tr><th>纸的层数</th><td class="given">1</td><td class="given">2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p style="margin-top:2mm">我最多对折了 <span class="fill"></span> 次。　9 层的分形树一共有：1 + 2 + 4 + … + 256 = <span class="fill" style="min-width:18mm"></span> 根树枝</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>❄️ 科赫雪花的周长</h2>
+    <p>每画一步，周长都变成原来的 <b>4/3</b>（先 ÷ 3，再 × 4）。起始是边长 9 厘米的三角形：</p>
+    <div class="chain">
+      <b class="given">27</b>→<b class="given">36</b>→<b></b>→<b></b>→<b></b>（厘米）
+      <span style="margin-left:4mm;font-size:10.5pt;color:#5B6275">一直画下去，周长会变成：<span class="fill" style="min-width:22mm"></span></span>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>✏️ 画一个谢尔宾斯基三角形</h2>
+    <p>① 用直尺把三条边的<b>中点</b>（圆点）连起来；② 中间的倒三角形不涂，其余 3 个涂色；③ 在每个涂色的三角形里再找中点、连线……</p>
+    <div class="center" id="sierp"></div>
+    <p style="text-align:center;margin-top:2mm">我画到了第 <span class="fill"></span> 层，一共有 <span class="fill"></span> 个涂色的小三角形。</p>
+  </section>
+</div>
+
+<!-- ======================= 第 2 页 ======================= -->
+<div class="page">
+  <section>
+    <h2><span class="n">4</span>🎲 混沌游戏 <span class="opt">（选做，需要一个骰子）</span></h2>
+    <p>从 ★ 出发。掷骰子：<b>1、2 → A</b>，<b>3、4 → B</b>，<b>5、6 → C</b>。用直尺量出到那个角的<b>一半</b>，点一个点，再从新的点出发……点 10 个点试试！</p>
+    <div class="center" id="chaos"></div>
+    <table style="margin-top:2mm">
+      <tr><th style="width:22%">第几次</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>掷出的点数</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>🔍 分形侦探 <span class="opt">（回家完成）</span></h2>
+    <p>在家里、路上、书本里找 3 个“局部像整体”的东西，画下来并写上名字：</p>
+    <div class="boxes3"><div><span>名字：</span></div><div><span>名字：</span></div><div><span>名字：</span></div></div>
+  </section>
+
+  <div class="cut">
+    <div style="display:flex;gap:5mm">
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🏠 回家小挑战（任选一个）</h2>
+        <ol>
+          <li>找一颗西兰花或花椰菜，掰一小朵和整颗比一比</li>
+          <li>和家人比赛：一张纸最多能对折几次？</li>
+          <li>把第 3 题的三角形画到第 4 层（81 个）</li>
+        </ol>
+      </div>
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">💡 今天学到的</h2>
+        <ol>
+          <li><b>分形</b>：局部像整体，一条规则不停重复</li>
+          <li>科赫雪花：周长无限长，面积却有限</li>
+          <li>海岸线：尺子越短，量出来越长</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 画等边三角形（单位：毫米），可选标出三边中点和起点
+  function triangle(side, opts) {
+    var h = side * Math.sqrt(3) / 2, pad = opts.labels ? 16 : 5, W = side + pad * 2, H = h + pad * 2 + (opts.labels ? 6 : 0);
+    var A = [pad + side / 2, pad + (opts.labels ? 5 : 0)], B = [pad, A[1] + h], C = [pad + side, A[1] + h];
+    function mid(p, q) { return [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]; }
+    var out = ['<svg width="' + W + 'mm" height="' + H + 'mm" viewBox="0 0 ' + W + ' ' + H + '">'];
+    out.push('<polygon points="' + [A, B, C].map(function (p) { return p.join(','); }).join(' ') + '" fill="none" stroke="#1E2640" stroke-width="0.5" stroke-linejoin="round"/>');
+    if (opts.mids) [mid(A, B), mid(B, C), mid(C, A)].forEach(function (p) {
+      out.push('<circle cx="' + p[0] + '" cy="' + p[1] + '" r="1.3" fill="#12A38A"/>');
+    });
+    if (opts.labels) {
+      [[A, 'A（1、2）', 0, -2.5], [B, 'B（3、4）', 0, 5.5], [C, 'C（5、6）', 0, 5.5]].forEach(function (l) {
+        out.push('<circle cx="' + l[0][0] + '" cy="' + l[0][1] + '" r="1.4" fill="#1E2640"/>');
+        out.push('<text x="' + (l[0][0] + l[2]) + '" y="' + (l[0][1] + l[3]) + '" font-size="3.8" font-weight="700" text-anchor="middle" fill="#1E2640">' + l[1] + '</text>');
+      });
+      var s = [pad + side * 0.42, A[1] + h * 0.62];
+      out.push('<text x="' + s[0] + '" y="' + (s[1] + 1.6) + '" font-size="5" text-anchor="middle" fill="#F04E4B">★</text>');
+    }
+    out.push('</svg>');
+    return out.join('');
+  }
+  document.getElementById('sierp').innerHTML = triangle(126, { mids: true });
+  document.getElementById('chaos').innerHTML = triangle(92, { labels: true });
+</script>
+</body>
+</html>

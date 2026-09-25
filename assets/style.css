@@ -430,3 +430,4 @@ table.tbl.compact { font-size: 23px; }
 table.tbl.compact th { font-size: 19px; padding: 4px 8px; }
 table.tbl.compact td { padding: 3px 8px; }
 ol.rules.card { padding-left: 2.4em; }
+.dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; margin-right: 10px; vertical-align: -1px; }

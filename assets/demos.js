@@ -1788,6 +1788,164 @@
     };
   };
 
+  /* ================= 封面装饰：慢慢翻转的 0 和 1 ================= */
+  Demos.coverBits = function (el) {
+    var W = 900, H = 900, COLS = 14, ROWS = 14, cw = W / COLS, ch = H / ROWS;
+    var c = hiCanvas(W, H), ctx = c.ctx, cells = [];
+    for (var i = 0; i < COLS * ROWS; i++) cells.push({ v: Math.random() < 0.5 ? 1 : 0, t: Math.random() * 6 });
+    var COLORS = ['#7B5CF0', '#F04E4B', '#F08A00', '#12A38A', '#2F80ED'];
+    var lp = loop(function (ts) {
+      var tt = ts / 1000;
+      ctx.clearRect(0, 0, W, H);
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      cells.forEach(function (cell, i) {
+        var x = (i % COLS) * cw + cw / 2, y = Math.floor(i / COLS) * ch + ch / 2;
+        var d = Math.hypot(x - W * 0.55, y - H / 2) / (W * 0.5);
+        if (d > 1) return;
+        if (Math.random() < 0.004) cell.v = 1 - cell.v;
+        var a = (1 - d) * (0.35 + 0.35 * Math.sin(tt * 1.3 + cell.t));
+        ctx.globalAlpha = Math.max(0, a);
+        ctx.fillStyle = COLORS[i % COLORS.length];
+        ctx.font = '900 ' + Math.round(ch * 0.62) + 'px Consolas, "Courier New", monospace';
+        ctx.fillText(cell.v, x, y);
+      });
+      ctx.globalAlpha = 1;
+    });
+    el.appendChild(c);
+    return { enter: function () { lp.start(); }, leave: function () { lp.stop(); } };
+  };
+
+  /* ================= 像素画：一行行 0 和 1，涂出一幅画 ================= */
+  // data-pic="heart"（默认）；按“下一步”一行一行解码
+  var PIXEL_PICS = {
+    heart: ['01100110', '11111111', '11111111', '11111111', '01111110', '00111100', '00011000', '00000000'],
+    cat: ['1000000001', '1100000011', '1111111111', '1111111111', '1101111011', '1111111111', '1111001111', '1111111111', '0111111110', '0011111100']
+  };
+  Demos.pixels = function (el) {
+    var pic = PIXEL_PICS[el.getAttribute('data-pic') || 'heart'], n = pic.length, CELL = Math.floor(560 / n);
+    var shown = 0, cells = [], codes = [];
+    var grid = h('div', { style: 'display:grid;grid-template-columns:auto repeat(' + n + ',' + CELL + 'px);gap:3px;align-items:center' });
+    pic.forEach(function (row, r) {
+      var code = h('div', { style: 'font-family:Consolas,"Courier New",monospace;font-size:' + Math.round(CELL * 0.5) + 'px;font-weight:900;letter-spacing:2px;padding-right:14px;color:#9AA0AE' }, row);
+      codes.push(code); grid.appendChild(code);
+      for (var k = 0; k < n; k++) (function (k) {
+        var cell = h('div', { style: 'width:' + CELL + 'px;height:' + CELL + 'px;border-radius:6px;background:#F1EEE8;cursor:pointer;transition:background .25s' });
+        cell.on = false;
+        cell.addEventListener('click', function () { cell.on = !cell.on; paint(cell); });
+        cells.push(cell); grid.appendChild(cell);
+      })(k);
+    });
+    function paint(cell) { cell.style.background = cell.on ? '#F04E4B' : '#F1EEE8'; }
+    function render() {
+      pic.forEach(function (row, r) {
+        codes[r].style.color = r < shown ? '#1E2640' : r === shown ? '#F04E4B' : '#9AA0AE';
+        for (var k = 0; k < n; k++) { var cell = cells[r * n + k]; cell.on = r < shown && row[k] === '1'; paint(cell); }
+      });
+    }
+    function fwd() { if (shown < n) { shown++; render(); return true; } return false; }
+    function back() { if (shown > 0) { shown--; render(); return true; } return false; }
+    el.appendChild(h('div', { class: 'col', style: 'gap:12px' }, grid,
+      h('div', { class: 'btns' }, btn('解码一行 ▶', fwd, 'primary'), btn('全部解码', function () { shown = n; render(); }), btn('↺ 清空', function () { shown = 0; render(); }))));
+    render();
+    return { next: fwd, prev: back };
+  };
+
+  /* ================= 暴力破解凯撒密码：25 种可能全部试一遍 ================= */
+  // data-plain：明文（拼音），data-key：密钥
+  Demos.bruteforce = function (el) {
+    var A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var plain = el.getAttribute('data-plain') || 'SHU XUE HEN YOU QU', key = +el.getAttribute('data-key') || 11;
+    function tr(s, k) { return s.replace(/[A-Z]/g, function (ch) { return A[(A.indexOf(ch) + k + 26) % 26]; }); }
+    var cipher = tr(plain, key), shown = 0, found = false;
+    var cards = [];
+    for (var k = 1; k <= 25; k++) (function (k) {
+      var card = h('div', { style: 'background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(60,40,10,.1);padding:5px 12px;font-family:Consolas,"Courier New",monospace;font-size:23px;font-weight:800;cursor:pointer;opacity:.15;transition:all .25s;white-space:nowrap' },
+        h('span', { style: 'color:#9AA0AE;font-size:16px' }, '往回 ' + k + '：'), tr(cipher, -k));
+      card.k = k;
+      card.addEventListener('click', function () {
+        card.style.opacity = 1;
+        if (k === key) { card.style.background = '#12A38A'; card.style.color = '#fff'; found = true; msg.innerHTML = '🎉 找到了！密钥是 <b>' + k + '</b>——“数学很有趣”！'; }
+        else { card.style.background = '#FFEDEC'; msg.innerHTML = '往回挪 ' + k + ' 位，读不通，不是它。'; }
+      });
+      cards.push(card);
+    })(k);
+    var msg = h('div', { class: 'status-line' }, '截获密文：');
+    function fwd() {
+      if (shown < 25) { shown = Math.min(25, shown + 5); cards.forEach(function (c, i) { if (i < shown) c.style.opacity = 1; }); msg.innerHTML = '电脑已经试了 <b>' + shown + '</b> 种……找一找哪一行能读通？'; return true; }
+      return false;
+    }
+    el.appendChild(h('div', { class: 'col grow', style: 'gap:12px' },
+      h('div', { style: 'display:flex;gap:16px;align-items:center' }, h('span', { class: 'sf-label', style: 'font-size:26px;color:#1E2640' }, '🕵️ 截获密文（密钥不知道）：'), h('span', { class: 'cipher-code', style: 'font-size:36px' }, cipher)),
+      h('div', { style: 'display:grid;grid-template-columns:repeat(4,1fr);gap:8px' }, cards),
+      h('div', { class: 'btns', style: 'align-items:center' }, btn('让电脑试 5 种 ▶', fwd, 'primary'), msg)));
+    return { next: fwd };
+  };
+
+  /* ================= 条形码的“检查员”：EAN-13 校验码 ================= */
+  var EAN_L = ['0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'];
+  var EAN_G = ['0100111', '0110011', '0011011', '0100001', '0011101', '0111001', '0000101', '0010001', '0001001', '0010111'];
+  var EAN_R = ['1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100'];
+  var EAN_P = ['LLLLLL', 'LLGLGG', 'LLGGLG', 'LLGGGL', 'LGLLGG', 'LGGLLG', 'LGGGLL', 'LGLGLG', 'LGLGGL', 'LGGLGL'];
+  function eanCheck(d12) {
+    var s = 0;
+    for (var i = 0; i < 12; i++) s += (+d12[i]) * (i % 2 ? 3 : 1);
+    return { sum: s, check: (10 - s % 10) % 10 };
+  }
+  function eanBits(d) {
+    var bits = '101', par = EAN_P[+d[0]];
+    for (var i = 1; i <= 6; i++) bits += (par[i - 1] === 'L' ? EAN_L : EAN_G)[+d[i]];
+    bits += '01010';
+    for (var j = 7; j <= 12; j++) bits += EAN_R[+d[j]];
+    return bits + '101';
+  }
+  Demos.ean = function (el) {
+    var base = '978710700000';
+    var digits = (base + eanCheck(base).check).split('');
+    var W = 640, H = 230;
+    var c = hiCanvas(W, H), ctx = c.ctx;
+    var boxes = h('div', { style: 'display:flex;gap:6px' });
+    var table = h('div', {});
+    var verdict = h('div', { class: 'callout', style: 'font-size:27px' });
+    function drawBarcode() {
+      ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+      var bits = eanBits(digits), mw = 5, x0 = (W - bits.length * mw) / 2;
+      for (var i = 0; i < bits.length; i++) {
+        if (bits[i] !== '1') continue;
+        var guard = i < 3 || (i >= 45 && i < 50) || i >= 92;
+        ctx.fillStyle = '#1E2640'; ctx.fillRect(x0 + i * mw, 14, mw, guard ? 166 : 150);
+      }
+      ctx.font = '700 24px Consolas, "Courier New", monospace'; ctx.textAlign = 'center'; ctx.fillStyle = '#1E2640';
+      ctx.fillText(digits[0], x0 - 16, 190);
+      for (var k = 1; k <= 6; k++) ctx.fillText(digits[k], x0 + (3 + (k - 1) * 7 + 3.5) * mw, 190);
+      for (var m = 7; m <= 12; m++) ctx.fillText(digits[m], x0 + (50 + (m - 7) * 7 + 3.5) * mw, 190);
+    }
+    function render() {
+      boxes.innerHTML = '';
+      digits.forEach(function (d, i) {
+        var b = h('div', { style: 'width:40px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:900 30px Consolas,"Courier New",monospace;cursor:pointer;' +
+          (i === 12 ? 'background:#1E2640;color:#FFD166' : 'background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12)') }, d);
+        b.title = '点一下，这一位加 1';
+        b.addEventListener('click', function () { digits[i] = String((+digits[i] + 1) % 10); render(); });
+        boxes.appendChild(b);
+      });
+      var r = eanCheck(digits.slice(0, 12)), ok = r.check === +digits[12];
+      var row1 = digits.slice(0, 12).map(function (d, i) { return '<td>' + (i % 2 ? '×3' : '×1') + '</td>'; }).join('');
+      var row2 = digits.slice(0, 12).map(function (d, i) { return '<td><b>' + d * (i % 2 ? 3 : 1) + '</b></td>'; }).join('');
+      table.innerHTML = '<table class="tbl compact" style="font-size:22px"><tr><th>乘</th>' + row1 + '</tr><tr><th>得</th>' + row2 + '</tr></table>' +
+        '<p style="font-size:24px;margin:8px 0 0">加起来 = <b>' + r.sum + '</b>，还差 <b>' + r.check + '</b> 凑到整十 → 检查码应该是 <b>' + r.check + '</b></p>';
+      verdict.innerHTML = ok ? '✅ 最后一位是 <b>' + digits[12] + '</b>，对上了：条形码<b>没有错</b>！' : '❌ 最后一位是 <b>' + digits[12] + '</b>，应该是 <b>' + r.check + '</b>：<b>发现错误！</b>收银机会“嘀”一声，要求重扫。';
+      drawBarcode();
+    }
+    function breakOne() { var i = Math.floor(Math.random() * 12); digits[i] = String((+digits[i] + 1 + Math.floor(Math.random() * 8)) % 10); render(); }
+    function fix() { digits[12] = String(eanCheck(digits.slice(0, 12)).check); render(); }
+    el.appendChild(h('div', { class: 'col', style: 'gap:12px;flex:none' }, box(c, W, H), boxes,
+      h('div', { class: 'btns' }, btn('🐞 偷偷改错一位', breakOne, 'primary'), btn('🔧 修好检查码', fix), btn('↺ 恢复', function () { digits = (base + eanCheck(base).check).split(''); render(); }))));
+    el.appendChild(h('div', { class: 'col grow' }, table, verdict,
+      h('div', { class: 'card tint', style: 'font-size:25px' }, '📚 动手：拿出一本课本，把封底条形码下面的 ', h('b', {}, '13 位数'), '抄到学习单第 4 题，', h('br'), '按上面的方法算一算，看看最后一位对不对得上！')));
+    render();
+    return {};
+  };
+
   /* ================= 二进制灯泡 ================= */
   Demos.bits = function (el) {
     var vals = [16, 8, 4, 2, 1], on = [0, 0, 0, 0, 0];

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第4集 信息的魔法 · 学习单</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 186mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page {
+    width: 186mm; min-height: 271mm; margin: 12px auto; padding: 8mm 9mm;
+    background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: flex; flex-direction: column; gap: 3mm;
+  }
+  @media print {
+    body { background: #fff; }
+    .tip { display: none; }
+    .page { margin: 0; box-shadow: none; padding: 0; page-break-after: always; min-height: auto; height: 271mm; }
+  }
+  header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 3px solid #1E2640; padding-bottom: 3mm; }
+  header h1 { margin: 0; font-size: 22pt; letter-spacing: 1px; }
+  header h1 small { font-size: 12pt; font-weight: 700; color: #F04E4B; display: block; letter-spacing: 3px; }
+  header .who { font-size: 12pt; line-height: 2; }
+  header .who span { display: inline-block; width: 30mm; border-bottom: 1px solid #1E2640; }
+  h2 { margin: 0 0 2mm; font-size: 14pt; display: flex; align-items: center; gap: 6px; }
+  h2 .n { background: #1E2640; color: #fff; border-radius: 50%; width: 8mm; height: 8mm; display: inline-flex; align-items: center; justify-content: center; font-size: 12pt; }
+  p { margin: 0 0 2mm; font-size: 11pt; line-height: 1.6; }
+  table { border-collapse: collapse; font-size: 11pt; }
+  th, td { border: 1.5px solid #1E2640; padding: 1.6mm 1.5mm; text-align: center; }
+  th { background: #F1EEE8; font-weight: 700; }
+  td.given { color: #5B6275; }
+  .mono { font-family: Consolas, "Courier New", monospace; font-weight: 700; }
+  .fill { display: inline-block; min-width: 14mm; border-bottom: 1.5px solid #1E2640; }
+  .pix { border-collapse: collapse; }
+  .pix td { width: 10.5mm; height: 10.5mm; padding: 0; border: 1px solid #9AA0AE; }
+  .pix td.code { border: 0; width: auto; padding-right: 3mm; font-family: Consolas, "Courier New", monospace; font-weight: 700; font-size: 12pt; letter-spacing: 1.5px; }
+  .abc td { width: 6.6mm; padding: 1mm 0; font-family: Consolas, "Courier New", monospace; font-weight: 700; font-size: 10.5pt; }
+  .code-line { font-family: Consolas, "Courier New", monospace; font-weight: 900; font-size: 15pt; letter-spacing: 3px; }
+  .card { border: 2px solid #1E2640; border-radius: 4mm; padding: 3mm 4mm; }
+  ol { margin: 0; padding-left: 6mm; font-size: 10.5pt; line-height: 1.7; }
+  .cut { border-top: 2px dashed #9AA0AE; margin-top: auto; padding-top: 3mm; position: relative; }
+  .cut::before { content: "✂ 沿虚线剪下，带回家"; position: absolute; top: -9px; left: 8mm; background: #fff; padding: 0 2mm; font-size: 9pt; color: #5B6275; }
+</style>
+</head>
+<body>
+
+<div class="tip">📄 打印说明：A4 纸<b>双面</b>打印（每人 1 张），缩放选“实际大小/100%”，勾选“背景图形”。回家表演用的读心术卡片请另外打印“ep04-读心术卡片”。
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<!-- ======================= 第 1 页 ======================= -->
+<div class="page">
+  <header>
+    <h1><small>数学之美 · 系列课 第 4 集</small>信息的魔法 · 学习单</h1>
+    <div class="who">班级 <span></span><br>姓名 <span></span></div>
+  </header>
+
+  <section>
+    <h2><span class="n">1</span>💡 灯泡里的数</h2>
+    <p>亮的灯泡写 <b>1</b>，灭的灯泡写 <b>0</b>。把亮着的灯泡上的数加起来，就是这个数。</p>
+    <table style="width:100%">
+      <tr><th style="width:26%">数</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th><th style="width:26%">检查：加起来</th></tr>
+      <tr><td>5</td><td class="given">0</td><td class="given">0</td><td class="given">1</td><td class="given">0</td><td class="given">1</td><td class="given">4 + 1 = 5</td></tr>
+      <tr><td>13</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>19</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>我的年龄：<span class="fill" style="min-width:8mm"></span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>最大能表示</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>🎨 像素画解码</h2>
+    <p>每一行：<b>1 = 涂色</b>，<b>0 = 空白</b>。按顺序涂完，看看藏着什么？答案：<span class="fill" style="min-width:24mm"></span></p>
+    <div style="display:flex;justify-content:center"><table class="pix" id="pix"></table></div>
+  </section>
+</div>
+
+<!-- ======================= 第 2 页 ======================= -->
+<div class="page">
+  <section>
+    <h2><span class="n">3</span>🔐 凯撒密码（密钥 3）</h2>
+    <p>加密：从上一行找到字母，写下面一行的字母；<b>解密</b>：从下面一行找，写上面一行的字母。</p>
+    <table class="abc" id="abc"></table>
+    <p style="margin-top:3mm">① 破译：<span class="code-line">VKX AXH CKHQ PHL</span> → <span class="fill" style="min-width:55mm"></span></p>
+    <p>② 加试：<span class="code-line">ZR DL VKX AXH</span> → <span class="fill" style="min-width:55mm"></span></p>
+    <p>③ 给同桌写一句拼音密信：<span class="fill" style="min-width:95mm"></span></p>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>🛒 条形码检查员</h2>
+    <p>把课本封底条形码下面的 13 位数抄下来。前 12 位：<b>单数位 × 1，双数位 × 3</b>，全部加起来，再看<b>还差几凑到整十</b>。</p>
+    <table style="width:100%" class="mono">
+      <tr><th style="width:14%">第几位</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td style="background:#1E2640;color:#FFD166">13</td></tr>
+      <tr><th>数字</th><td style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><th>乘</th><td>×1</td><td>×3</td><td>×1</td><td>×3</td><td>×1</td><td>×3</td><td>×1</td><td>×3</td><td>×1</td><td>×3</td><td>×1</td><td>×3</td><td>—</td></tr>
+      <tr><th>得</th><td style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>—</td></tr>
+    </table>
+    <p style="margin-top:2mm">加起来 = <span class="fill"></span>，还差 <span class="fill" style="min-width:8mm"></span> 凑到整十。第 13 位是 <span class="fill" style="min-width:8mm"></span>。　□ 对上了！　□ 对不上</p>
+  </section>
+
+  <div class="cut">
+    <div style="display:flex;gap:5mm">
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🔮 读心术的秘密</h2>
+        <ol>
+          <li>请家人心里想一个 1～31 的数</li>
+          <li>问：你的数在哪几张卡片上？</li>
+          <li>把“有”的卡片<b>左上角第一个数</b>加起来，就是答案！</li>
+        </ol>
+      </div>
+      <div class="card" style="flex:1">
+        <h2 style="font-size:12pt">🏠 回家小挑战（任选一个）</h2>
+        <ol>
+          <li>给家人表演读心术，再教会他们</li>
+          <li>用凯撒密码给好朋友写一封信</li>
+          <li>找 3 样商品，验一验条形码</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 第 2 题：小猫脸（和课件里的爱心不一样，学生要自己解码）
+  var CAT = ['1000000001', '1100000011', '1111111111', '1111111111', '1101111011', '1111111111', '1111001111', '1111111111', '0111111110', '0011111100'];
+  document.getElementById('pix').innerHTML = CAT.map(function (row) {
+    return '<tr><td class="code">' + row + '</td>' + row.split('').map(function () { return '<td></td>'; }).join('') + '</tr>';
+  }).join('');
+  // 第 3 题：密钥 3 的对照表
+  var A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  document.getElementById('abc').innerHTML =
+    '<tr><th style="font-size:9pt">明文</th>' + A.split('').map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>' +
+    '<tr><th style="font-size:9pt">密文</th>' + A.split('').map(function (c, i) { return '<td style="background:#FFEDEC">' + A[(i + 3) % 26] + '</td>'; }).join('') + '</tr>';
+</script>
+</body>
+</html>

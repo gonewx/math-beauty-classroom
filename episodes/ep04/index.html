@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第4集 信息的魔法 · 数学之美系列课</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<script>
+  // 本集章节与计划时间（合计 40 分钟）
+  window.DECK_CONFIG = {
+    chapters: [
+      { name: '开场', min: 6, color: '#7B5CF0' },
+      { name: '第一站 · 电脑的语言', min: 12, color: '#F08A00' },
+      { name: '第二站 · 凯撒密码', min: 10, color: '#12A38A' },
+      { name: '第三站 · 手机里的数学', min: 8, color: '#2F80ED' },
+      { name: '揭秘与收获', min: 4, color: '#F04E4B' }
+    ]
+  };
+</script>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ============================ 开场（6 分钟） ============================ -->
+
+<section class="slide cover" data-ch="0" data-title="封面">
+  <div class="bg" data-demo="coverBits"></div>
+  <div class="cover-text">
+    <div class="pill">数学之美 · 系列课　第 4 集</div>
+    <h1>信息的魔法</h1>
+    <p class="subtitle">0 和 1、密码信，还有读心术</p>
+    <p class="meta">家长进校园 · 适合 4–6 年级 · 40 分钟<br>今天，我们来当一回<b>魔术师</b>和<b>密码员</b> 🔐</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b>（学生入座时停在这一页。）</p>
+    <p>开场白参考：“同学们好！我们每天用的手机、电脑、微信，里面装着成千上万的照片、文字、视频。你们知道吗？在电脑的心里，这些东西全都只是 <b>0 和 1</b>。今天我们就来揭开信息的魔法。”</p>
+    <p>课前请班主任分好 4 人小组。每人：学习单 1 张；每组：彩笔、直尺；请同学们把<b>一本课本</b>放在桌上（第三站要用封底的条形码）。</p>
+    <p>老师自己：打印一套“读心术卡片”（可以放大到 A3 更好），第一站还要用 5 张写着 16、8、4、2、1 的大卡片（A4 纸手写即可）。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="0" data-title="读心术魔术">
+  <div class="head"><span class="kicker">开场魔术</span><h2>🔮 读心术：我知道你在想什么！</h2></div>
+  <p class="lead small">请一位同学在心里默想一个 <b>1～31</b> 之间的数（不许说出来！），然后告诉我：<b>你的数在哪几张卡片上？</b></p>
+  <div class="magic-wrap" data-demo="magic"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 5 分钟</b>——本集的“钩子”，一定要演得神秘一点。</p>
+    <p>1. 请一位同学站起来，心里想一个 1～31 的数，<b>悄悄写在纸上给同桌看</b>（防止“赖账”）。</p>
+    <p>2. 依次问：“卡片 A 上有你的数吗？”同学说“有”就<b>点击那张卡片</b>（出现“✓ 有”印章），说“没有”就跳过。</p>
+    <p>3. 五张都问完，点击“🔮 揭晓”（或按翻页笔下一步）。故作神秘：“我感觉到了……你想的数是——！”请同桌核对。</p>
+    <p>4. 再换 1～2 位同学玩，点“↺ 再来一次”。可以让一位同学上来“考”你：你背过身去，全班看着他点卡片。</p>
+    <p>5. 收尾：“想知道秘密吗？<b>下课前揭晓</b>！而且揭晓以后，你们每个人都能回家给爸爸妈妈表演。”</p>
+    <p>（原理先别说：每张卡片左上角的第一个数是 1、2、4、8、16，把“有”的卡片的第一个数加起来就是答案——这就是二进制。）</p>
+  </aside>
+</section>
+
+<!-- ============================ 第一站（12 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="1" data-title="第一站 · 电脑的语言">
+  <div class="ch-num">第一站</div>
+  <h1>电脑的语言</h1>
+  <p class="ch-sub">只用 0 和 1，怎么表示所有的数和图画？</p>
+  <p class="ch-time">约 12 分钟</p>
+  <div class="ch-emoji">💡💻<br>0️⃣1️⃣</div>
+  <aside class="notes"><p>⏱ 10 秒。“电脑的‘脑子’里有几十亿个小开关，每个开关只有两种状态：开和关。我们用灯泡来看看。”</p></aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="二进制灯泡">
+  <div class="head"><span class="kicker">电脑的语言</span><h2>💡 电脑只认识 0 和 1</h2></div>
+  <p class="lead small">每个灯泡只有两种状态：<b>亮 = 1</b>，<b>灭 = 0</b>。点一点灯泡，5 个灯泡能表示多少个数？</p>
+  <div data-demo="bits"></div>
+  <div class="row step" style="margin-top:22px;justify-content:center;gap:10px;flex-wrap:wrap">
+    <span class="chip">挑战①：亮出 <b>5</b></span><span class="chip">挑战②：亮出 <b>13</b></span><span class="chip">挑战③：亮出<b>你的年龄</b></span><span class="chip">挑战④：最大能亮出几？</span>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 6 分钟</b>（含“人体二进制”游戏）</p>
+    <p>先演示：点亮“1”→ 1；再点亮“4”→ 5。“每个灯泡代表的数不一样：1、2、4、8、16——每个都是前一个的 <b>2 倍</b>。”</p>
+    <p>按“下一步”出现挑战，请同学上台点灯泡：5 = 4+1；13 = 8+4+1；10 岁 = 8+2；11 岁 = 8+2+1；12 岁 = 8+4。最大：全亮 = 16+8+4+2+1 = <b>31</b>。</p>
+    <p><b>人体二进制游戏</b>（强烈推荐）：请 5 位同学到前面站成一排，手里分别举着写有 16、8、4、2、1 的大卡片。规则：<b>站着 = 1（亮），蹲下 = 0（灭）</b>。老师报一个数（如 19、7、25），5 位同学商量后站好或蹲下，全班检查对不对。19 = 16+2+1 → 站、蹲、蹲、站、站。</p>
+    <p>“咦，最大是 31……开场魔术的数也是 1～31，是不是有点关系？”——埋个伏笔，结尾揭秘。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="1" data-title="0和1画图画">
+  <div class="head"><span class="kicker">学习单 第 2 题</span><h2>🎨 只用 0 和 1，怎么画一幅画？</h2></div>
+  <div class="row grow">
+    <div data-demo="pixels" data-pic="heart"></div>
+    <div class="col grow">
+      <div class="card tint" style="font-size:27px">手机屏幕上的图片，是由很多很多小方格——<b>像素</b>——拼成的。<br>每个方格：<b>1 = 涂色</b>，<b>0 = 空白</b>。</div>
+      <div class="callout step" style="font-size:27px">一张手机照片有<b>几百万个</b>像素，<br>每个像素的颜色也用 0 和 1 记下来——<br>所以照片就是一大串 <b>0 和 1</b>！</div>
+      <div class="card step" style="font-size:26px">✏️ 轮到你了：学习单第 2 题，<br>按照每行的 0 和 1 涂色，<br>看看藏着什么图画？</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 5 分钟</b>（演示 1 分钟 + 学生涂色 3～4 分钟）</p>
+    <p>讲解：“屏幕上的图片是一个个小方格组成的。我们只用两种颜色：1 就涂色，0 就空着。”</p>
+    <p>按“下一步”一行一行解码，每一行先请学生读出 0 和 1，再点出来——一颗爱心慢慢出现。也可以点方格自己画。</p>
+    <p>再按“下一步”出现两段话，然后请学生做学习单第 2 题：10×10 的格子，按每行的数字涂色，会出现一只<b>小猫脸</b>（先别说答案！）。</p>
+    <p>快的同学可以在空白格子里自己设计一幅像素画，写出每行的 0 和 1，考考同桌。</p>
+  </aside>
+</section>
+
+<!-- ============================ 第二站（10 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="2" data-title="第二站 · 凯撒密码">
+  <div class="ch-num">第二站</div>
+  <h1>凯撒密码</h1>
+  <p class="ch-sub">2000 年前的秘密信，你能破译吗？</p>
+  <p class="ch-time">约 10 分钟 · 请拿出学习单</p>
+  <div class="ch-emoji">🔐📜<br>🕵️🏛️</div>
+  <aside class="notes"><p>⏱ 10 秒。“信息不光要存起来，还要<b>保密</b>。我们来当一回古罗马的密码员！”</p></aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="凯撒密码" data-video="videos/01-caesar.mp4">
+  <div class="head"><span class="kicker">小组挑战 · 学习单第 3 题</span><h2>🔐 凯撒密码：把字母“挪一挪”</h2></div>
+  <div class="row grow" data-demo="caesar">
+    <div class="col grow caesar-side" style="gap:12px">
+      <div class="card tint" style="font-size:24px;padding:16px 24px">2000 多年前，罗马的<b>凯撒大帝</b>这样写秘密信：每个字母都换成它<b>后面第 3 个</b>字母。<br>A→D，B→E，C→F……X→A，Y→B，Z→C</div>
+      <div>
+        <p class="lead small" style="margin:0 0 6px;font-size:26px">🕵️ 截获一封密信（拼音），请破译：</p>
+        <div class="cipher-code" style="font-size:40px">VKX AXH CKHQ PHL</div>
+        <span class="step answer" style="font-size:26px;margin-left:10px">数学真美！</span>
+      </div>
+      <div class="step">
+        <p class="lead small" style="margin:0;font-size:26px">⚡ 加试题：<span class="cipher-code" style="font-size:32px">ZR DL VKX AXH</span>
+        <span class="step answer" style="font-size:26px;margin-left:10px">我爱数学！</span></p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 6 分钟</b></p>
+    <p>先用密码轮演示：拖动（或点 ＋/－）内圈，让外圈 A 对准内圈 D，这就是“密钥 3”。加密：看外圈找内圈；解密：看内圈找外圈（往回数 3 个字母）。</p>
+    <p>各组用学习单第 3 题的对照表破译 <b>VKX AXH CKHQ PHL</b>。<b>最先破译的小组举手</b>，请他们读出来。点击揭晓。</p>
+    <p>快的小组继续做加试题 ZR DL VKX AXH。</p>
+    <p>然后请每人用学习单上的空行，给同桌写一句拼音密信（密钥自己定，写在纸条背面），互相破译。右下角的“翻译机”可以现场帮忙检查。</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="2" data-title="破解凯撒密码">
+  <div class="head"><span class="kicker">当一回破译专家</span><h2>🕵️ 不知道密钥，也能破解吗？</h2></div>
+  <div class="row grow" data-demo="bruteforce" data-plain="SHU XUE HEN YOU QU" data-key="11"></div>
+  <p class="lead small step" style="margin:10px 0 0">凯撒密码只有 <b>25 种</b>可能的密钥，一个一个试就破解了——所以它<b>不安全</b>！今天的密码要难得多……</p>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>“间谍截获了一封密信，可是不知道密钥是几。怎么办？”——让学生想办法：一个一个试！</p>
+    <p>按“下一步”，每次“让电脑试 5 种”，共 25 种。请学生找一找哪一行能读通。点一下那一行验证：往回挪 11 位，是 SHU XUE HEN YOU QU——“数学很有趣”！</p>
+    <p>再按“下一步”出现结论：“只有 25 种可能，人一个一个试也就几分钟，电脑一眨眼就试完了。所以凯撒密码早就不用了。那今天手机里的密码是怎么保密的呢？”——引出第三站。</p>
+  </aside>
+</section>
+
+<!-- ============================ 第三站（8 分钟） ============================ -->
+
+<section class="slide chapter" data-ch="3" data-title="第三站 · 手机里的数学">
+  <div class="ch-num">第三站</div>
+  <h1>手机里的数学</h1>
+  <p class="ch-sub">质数保护密码，条形码会自己“检查”</p>
+  <p class="ch-time">约 8 分钟 · 请拿出一本课本</p>
+  <div class="ch-emoji">📱🔢<br>📚🛒</div>
+  <aside class="notes"><p>⏱ 10 秒。“最后一站，我们看看每天用的手机和超市收银机里，藏着什么数学。”</p></aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="质数保护密码">
+  <div class="head"><span class="kicker">今天的密码</span><h2>📱 手机支付靠什么保密？质数！</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="callout">质数：只能被 1 和它自己整除的数，比如 2、3、5、7、11、13……</div>
+      <p class="lead" style="margin-top:16px">把两个质数<b>乘起来</b>很容易，<br>可把乘积<b>拆回去</b>却非常难！</p>
+      <div class="factor">15 = <span class="step eqr">3 × 5</span></div>
+      <div class="factor step">221 = <span class="step eqr">13 × 17</span></div>
+      <div class="factor step">8633 = <span class="step eqr">89 × 97</span></div>
+    </div>
+    <div class="col center step" style="width:560px;flex:none">
+      <div class="card tint" style="font-size:28px">
+        <div class="big-emoji">🔒</div>
+        手机、网银用的密码（例如 RSA），用的数有 <b>600 多位</b>那么长！<br><br>
+        现在全世界最快的电脑一起来拆，<br>也要算上非常非常多年。
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 3 分钟</b></p>
+    <p>快问快答：“15 可以拆成哪两个质数相乘？”——3×5，秒答。“221 呢？”——多数同学要想一会儿（13×17）。“8633 呢？”——几乎没人能很快答出来（89×97）。可以反过来：“89 × 97 等于几？”用竖式很快就能算出 8633。</p>
+    <p>“看，乘起来容易，拆开难——数越大越难拆。我们手机支付时用的数有好几百位，全世界最快的电脑也拆不开。我们的钱就是这样被数学保护的！”</p>
+    <p>（家长知识点：RSA 加密由三位数学家在 1977 年提出，它的安全性就依赖于“大数很难分解成质数”。）</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="3" data-title="条形码的检查员">
+  <div class="head"><span class="kicker">学习单 第 4 题</span><h2>🛒 条形码的最后一位，是“检查员”</h2></div>
+  <div class="row grow" data-demo="ean"></div>
+  <aside class="notes">
+    <p>⏱ <b>约 5 分钟</b></p>
+    <p>“超市收银员‘嘀’一下就知道是什么商品。可万一条形码脏了、读错了一位怎么办？秘密在<b>最后一位数</b>——它是‘检查员’。”</p>
+    <p>讲规则：前 12 位数，<b>第 1、3、5……位乘 1，第 2、4、6……位乘 3</b>，全部加起来，再看还差几凑到整十，就是检查码。</p>
+    <p>点“🐞 偷偷改错一位”：检查码对不上了，出现“❌ 发现错误”。点“🔧 修好检查码”恢复。也可以直接点某一位数字让它 +1。</p>
+    <p><b>动手</b>：请每人拿出一本课本，找到封底条形码下面的 13 位数（书号 ISBN），抄到学习单第 4 题，按规则算一算检查码，看看和最后一位是不是一样！（四年级可以两人合作，一人读一人算。）</p>
+    <p>（家长知识点：这是国际通用的 EAN-13 条形码，图书的书号 ISBN-13 也用同样的检查方法。）</p>
+  </aside>
+</section>
+
+<!-- ============================ 揭秘与收获（4 分钟） ============================ -->
+
+<section class="slide" data-ch="4" data-title="魔术揭秘">
+  <div class="head"><span class="kicker">真相大白</span><h2>🔮 魔术揭秘：看每张卡片的第一个数！</h2></div>
+  <div data-demo="magicReveal"></div>
+  <div class="callout step" style="margin-top:18px">每张卡片 = 一个灯泡 💡　<b>“有”就是亮（1），“没有”就是灭（0）</b>　把“有”的卡片的第一个数加起来，就是答案！</div>
+  <aside class="notes">
+    <p>⏱ <b>约 2 分钟</b></p>
+    <p>“开场的魔术，秘密就在每张卡片<b>左上角的第一个数</b>：1、2、4、8、16——和灯泡一模一样！”</p>
+    <p>页面会自动显示开场时同学想的数是怎么算出来的（例如 28 = 4 + 8 + 16）。如果开场没玩，可以现场点卡片演示。</p>
+    <p>“为什么每张卡片上的数是这样排的？比如卡片上写着 4 的那张，放的就是所有‘4 号灯泡亮着’的数。每个数都能<b>唯一</b>地写成 1、2、4、8、16 中几个数的和——这就是二进制。”</p>
+    <p>“今天回家就可以给爸爸妈妈表演！读心术卡片可以打印（printables/ep04-读心术卡片.html），也可以自己照着抄一套。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="今天的收获">
+  <div class="head"><span class="kicker">回顾</span><h2>🎁 今天我们学会了哪些“信息魔法”？</h2></div>
+  <div class="cards c3">
+    <div class="card"><div class="big-emoji">💡</div><h3>二进制</h3>只用 0 和 1<br>就能表示所有的数和图画</div>
+    <div class="card step"><div class="big-emoji">🔐</div><h3>密码</h3>凯撒密码挪一挪字母<br>今天的密码靠<b>质数</b></div>
+    <div class="card step"><div class="big-emoji">🛒</div><h3>检查码</h3>条形码最后一位<br>能发现读错的数字</div>
+  </div>
+  <p class="lead step" style="margin-top:40px;text-align:center">我们每天用的手机、电脑、网络，<br>背后都是<b>数学</b>在默默工作。</p>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>每出现一张卡片，请学生<b>齐声</b>说出关键词：“二进制！”“密码！”“检查码！”</p>
+    <p>可以提一句吴军老师的书《数学之美》：搜索引擎、语音识别、手机通信，背后都是数学。“这本书你们长大一点可以读，也可以推荐给爸爸妈妈。”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="4" data-title="回家小挑战 & 下集预告">
+  <div class="head"><span class="kicker">带回家</span><h2>🏠 回家小挑战（任选一个）</h2></div>
+  <div class="row grow">
+    <div class="col grow">
+      <div class="card">
+        <ol class="rules" style="font-size:28px">
+          <li>🔮 给家人表演<b>读心术</b>，然后教会他们</li>
+          <li>🔐 用凯撒密码给好朋友写一封<b>秘密信</b></li>
+          <li>🛒 找 3 样家里的商品，用条形码<b>检查码</b>验一验</li>
+          <li>🎨 设计一幅 0 和 1 的<b>像素画</b>，让家人来解码</li>
+        </ol>
+      </div>
+      <div class="card tint" style="font-size:24px;line-height:1.55">
+        📚 <b>推荐读物</b>　《李毓佩数学童话》· 《可怕的科学 · 经典数学系列》<br>
+        <span class="muted">家长读：《数学之美》（吴军）</span>
+      </div>
+    </div>
+    <div class="col step" style="width:500px;flex:none">
+      <div class="card" style="font-size:28px;text-align:center;border:4px dashed #12A38A">
+        <div class="ch-num" style="font-size:26px;color:#12A38A;font-weight:900;letter-spacing:4px">下集预告</div>
+        <div class="big-emoji" style="font-size:90px">🦋❄️</div>
+        <h3>第 5 集 · 对称的世界</h3>
+        一张纸、<b>只剪一刀</b>，<br>能剪出一个五角星吗？
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>⏱ <b>约 1 分钟</b></p>
+    <p>这一页可以请老师拍照发到班级群。学习单背面也印有这些挑战。</p>
+    <p>点一下出现下集预告：“下一次，我们只剪一刀，就能剪出一个五角星！”</p>
+  </aside>
+</section>
+
+<section class="slide cover" data-ch="4" data-title="谢谢 & 提问">
+  <div class="bg" data-demo="coverBits"></div>
+  <div class="cover-text">
+    <div class="pill">谢谢大家！</div>
+    <h1 style="font-size:120px">有问题吗？</h1>
+    <p class="subtitle">0 和 1 里，<br>藏着整个信息世界 💡</p>
+    <p class="meta">带上你的“密码眼镜” 👓，继续去寻宝吧！</p>
+  </div>
+  <aside class="notes">
+    <p>⏱ 剩余时间用于提问。常见问题的参考回答见“docs/第4集/问答锦囊.md”。</p>
+    <p>答不上来也没关系：“这个问题太棒了，我也不知道！我们回去一起查，下次告诉你。”</p>
+  </aside>
+</section>
+
+<div id="chapterTag"><i></i><span></span></div>
+<div id="progress"></div>
+<div id="pageNo"></div>
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="hud">
+  <button data-act="menu" title="目录（M）">☰</button>
+  <button data-act="prev" title="上一步（←）">◀</button>
+  <span class="count" id="hudCount"></span>
+  <button data-act="next" title="下一步（→ / 空格）">▶</button>
+  <button data-act="fullscreen" title="全屏（F）">⛶</button>
+  <button data-act="presenter" title="讲者视图（P）">🖥</button>
+  <button data-act="help" title="快捷键（H）">？</button>
+</div>
+
+<div id="timerBox"></div>
+<div id="notesPanel"></div>
+<div class="overlay" id="blackout"></div>
+<div class="overlay" id="menuOverlay"><div class="panel" id="menuPanel"></div></div>
+<div class="overlay" id="helpOverlay"><div class="panel">
+  <button class="btn sm close" data-act="closeOverlays">✕ 关闭</button>
+  <h3>⌨️ 快捷键和使用说明</h3>
+  <div class="keys">
+    <span><kbd>→</kbd> <kbd>空格</kbd> <kbd>下翻页</kbd></span><span>下一步（翻页笔可直接用）</span>
+    <span><kbd>←</kbd> <kbd>上翻页</kbd></span><span>上一步</span>
+    <span><kbd>F</kbd></span><span>全屏 / 退出全屏</span>
+    <span><kbd>P</kbd></span><span>打开“讲者视图”窗口（讲稿 + 计时，适合双屏：投影放课件，电脑屏幕看讲稿）</span>
+    <span><kbd>N</kbd></span><span>在本屏幕底部显示/隐藏讲稿（排练用，学生会看到）</span>
+    <span><kbd>T</kbd></span><span>显示/隐藏计时器（第一次翻页时自动开始计时）</span>
+    <span><kbd>M</kbd></span><span>目录：跳到任意一页（标“可跳过”的页面时间紧时可略过）</span>
+    <span><kbd>B</kbd> / <kbd>W</kbd></span><span>黑屏 / 白屏（让学生注意力回到你身上），再按一次恢复</span>
+    <span><kbd>V</kbd></span><span>播放本页视频（仅当 videos 文件夹里放了对应视频时出现 🎬 按钮）</span>
+    <span><kbd>首页键</kbd> / <kbd>尾页键</kbd></span><span>第一页 / 最后一页</span>
+  </div>
+  <p>互动页面上的按钮、滑块、卡片都可以直接用鼠标或触摸屏点击。</p>
+</div></div>
+<div class="overlay" id="videoOverlay"><div class="vbox">
+  <video id="videoEl" controls playsinline></video>
+  <button class="btn" data-act="closeOverlays">✕ 关闭视频（Esc）</button>
+</div></div>
+
+<div id="presenter"></div>
+
+<script src="../../assets/demos.js"></script>
+<script src="../../assets/deck.js"></script>
+</body>
+</html>

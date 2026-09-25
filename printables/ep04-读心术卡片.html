@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第4集 · 读心术卡片</title>
+<style>
+  @page { size: A4 portrait; margin: 10mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #E9E5DD; color: #1E2640;
+    font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .tip { max-width: 190mm; margin: 12px auto; background: #FFF6DB; border: 2px dashed #E9A400; border-radius: 10px; padding: 10px 14px; font-size: 14px; line-height: 1.6; }
+  .tip button { font-size: 15px; font-weight: 800; padding: 6px 16px; border-radius: 8px; border: 0; background: #1E2640; color: #fff; cursor: pointer; margin-left: 10px; }
+  .page { width: 190mm; height: 277mm; margin: 12px auto; background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); }
+  @media print { body { background: #fff; } .tip { display: none; } .page { margin: 0; box-shadow: none; } }
+  .card { border: 0.4mm dashed #9AA0AE; padding: 5mm; display: flex; flex-direction: column; }
+  .card .hd { color: #fff; font-size: 17pt; font-weight: 900; text-align: center; border-radius: 3mm; padding: 1.5mm; letter-spacing: 3px; }
+  .card .grid { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; justify-items: center; margin-top: 3mm; }
+  .card .grid span { font-size: 22pt; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .howto { font-size: 11.5pt; line-height: 1.8; }
+  .howto h3 { margin: 0 0 2mm; font-size: 15pt; }
+  .howto ol { margin: 0; padding-left: 6mm; }
+  .howto .secret { margin-top: 3mm; border: 0.5mm solid #F04E4B; border-radius: 3mm; padding: 2mm 3mm; font-size: 10.5pt; color: #5B6275; }
+</style>
+</head>
+<body>
+
+<div class="tip">🔮 打印说明：A4 纸单面打印，沿虚线剪成 6 张小卡片（5 张数字卡片 + 1 张说明）。建议用<b>彩色</b>打印，或打印后自己给卡片标题涂色。每位同学一套，回家给家人表演！
+  <button onclick="window.print()">🖨 打印</button></div>
+
+<div class="page" id="page"></div>
+
+<script>
+  // 与课件中的卡片完全一致：卡片 A～E 对应的二进制位
+  var ORDER = [2, 0, 4, 1, 3], COLORS = ['#F04E4B', '#F08A00', '#12A38A', '#2F80ED', '#7B5CF0'], LETTERS = 'ABCDE';
+  var html = '';
+  ORDER.forEach(function (bit, k) {
+    var nums = [];
+    for (var n = 1; n <= 31; n++) if ((n >> bit) & 1) nums.push(n);
+    html += '<div class="card"><div class="hd" style="background:' + COLORS[k] + '">卡片 ' + LETTERS[k] + '</div><div class="grid">' +
+      nums.map(function (x) { return '<span>' + x + '</span>'; }).join('') + '</div></div>';
+  });
+  html += '<div class="card howto"><h3>🔮 读心术 · 表演方法</h3><ol>' +
+    '<li>请对方心里想一个 <b>1～31</b> 的数</li>' +
+    '<li>一张一张给他看：你的数在这张卡片上吗？</li>' +
+    '<li>把回答“有”的卡片放在一边</li>' +
+    '<li>假装“感应”一下，说出答案！</li></ol>' +
+    '<div class="secret">🤫 秘密（剪下后折起来藏好）：把“有”的卡片<b>左上角第一个数</b>加起来，就是答案。因为每张卡片的第一个数是 1、2、4、8、16——这就是<b>二进制</b>！</div></div>';
+  document.getElementById('page').innerHTML = html;
+</script>
+</body>
+</html>
